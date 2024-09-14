@@ -9,10 +9,9 @@ symlinks() {
 
   # konsole
   ln -s "$DOTFILES_PATH/konsole/transparent.profile" "$HOME/.local/share/konsole/"
-  
-  # nvim
-  ln -s "$DOTFILES_PATH/nvim/init.lua" "$HOME/.config/nvim/"
-  ln -s "$DOTFILES_PATH/nvim/lua/plugins/colorscheme.lua" "$HOME/.config/nvim/lua/plugins/"
+
+  # kitty
+  ln -s "$DOTFILES_PATH/kitty/kitty.conf" "$HOME/.config/kitty/"
 }
 
 symlinks
