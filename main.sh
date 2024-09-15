@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILES_PATH="$(pwd)"
+DOTFILES_PATH="$(dirname "$(realpath "$0")")"
 
 # Create symlinks
 symlinks() {
