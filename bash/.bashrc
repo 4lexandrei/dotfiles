@@ -9,18 +9,26 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
-export EDITOR=nvim
+editfile() {
+  export EDITOR=nvim
+  file=$(fzf \
+    --reverse \
+    --pointer ">" \
+    --preview "bat --color=always {}" \
+    --margin=1 \
+    --border)
+
+  [ -n "$file" ] && $EDITOR "$file"
+}
 
 # Custom alias
-alias editf='file=$(fzf \
---reverse \
---pointer ">" \
---preview "bat --color=always {}" \
---margin=1 \
---border);
-[ -n "$file" ] && $EDITOR "$file"'
+alias ef='editfile'
 alias cdf='cd $(find -type d | fzf)'
 alias zedf='zeditor $(find -type d | fzf)'
 
+alias bb='bashbuddy'
+
 # Custom PATH
 export PATH="$HOME/.local/bin:$PATH"
+
+export TERM=xterm-256color
