@@ -2,16 +2,35 @@
 
 DOTFILES_PATH="$(dirname "$(realpath "$0")")/.."
 
-# Create symlinks
+# Create symlink, if not already
+create_symlink() {
+  local target="$1"
+  local link="$2"
+
+  if [ ! -L "$link" ]; then
+    rm -rf "$link"
+    ln -snf "$target" "$link"
+    echo "Created symlink: $target -> $link"
+  else
+    echo "$link already a symlink"
+  fi
+}
+
 symlinks() {
+  # hypr
+  create_symlink "$DOTFILES_PATH"/hypr "$HOME"/.config/hypr
+
   # bash
-  ln -s "$DOTFILES_PATH/bash/.bashrc" "$HOME/"
+  create_symlink "$DOTFILES_PATH"/bash/.bashrc "$HOME"/.bashrc
 
   # konsole
-  ln -s "$DOTFILES_PATH/konsole/transparent.profile" "$HOME/.local/share/konsole/"
+  create_symlink "$DOTFILES_PATH"/konsole/transparent.profile "$HOME"/.local/share/konsole/transparent.profile
 
   # kitty
-  ln -s "$DOTFILES_PATH/kitty/kitty.conf" "$HOME/.config/kitty/"
+  create_symlink "$DOTFILES_PATH"/kitty "$HOME"/.config/kitty
+
+  # tmux
+  create_symlink "$DOTFILES_PATH"/tmux "$HOME"/.config/tmux
 }
 
 symlinks
