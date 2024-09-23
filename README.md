@@ -1,9 +1,27 @@
 # dotfiles
 
 ## How to use
+Clone repository
 ```bash
 git clone https://github.com/4lexandrei/dotfiles.git ~/.dotfiles
 ```
+Symlink dotfiles command
+```bash
+ln -snf ~/.dotfiles/bin/dotfiles ~/.local/bin/
+```
+Run command 
+```bash
+dotfiles
+```
+
+> **INFO:**  
+```bash
+./main.sh # Symlinks repository dotfiles to your system.
+```
+```bash
+./nvim.sh # Sets up neovim.
+```
+
 
 ## My setup
 
