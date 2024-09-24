@@ -1,0 +1,43 @@
+
+* {
+  font-family: 'JetBrainsMono', sans-serif;
+  font-weight: bold;
+  font-size: 11px;
+  border: none;
+}
+
+*:hover {
+  background: none;
+}
+
+window#waybar {
+  background-color: transparent;
+  color: #ebdbb2;
+}
+
+#workspaces button.active {
+  color: #ffffff;
+}
+
+.modules-left {
+  margin-left: 12px;
+}
+
+.modules-right {
+  margin-right: 12px;
+}
+
+#battery {
+  margin: 0 5px 0 0px;
+  padding: 0 5px 0 15px;
+}
+
+#network {
+  margin: 0 0px 0 0px;
+  padding: 0 15px 0 15px;
+}
+
+#clock {
+  margin: 0 15px 0 0;
+  padding: 0 15px 0 15px;
+}
