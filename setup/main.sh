@@ -20,6 +20,9 @@ symlinks() {
   # hypr
   create_symlink "$DOTFILES_PATH"/hypr "$HOME"/.config/hypr
 
+  # waybar
+  create_symlink "$DOTFILES_PATH"/waybar "$HOME"/.config/waybar
+
   # rofi
   create_symlink "$DOTFILES_PATH"/rofi "$HOME"/.config/rofi
 

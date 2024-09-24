@@ -11,15 +11,15 @@
     "format-icons": {
       "urgent": "󰀨",
       "active": "",
-      "default": ""
+      "default": ""
     },
-
     "sort-by-number": true
   },
 
   "clock": {
     "format": "󰥔   {:%I:%M %p}",
-    "format-alt": "󰥔   {:%a, %d. %b  %I:%M %p}"
+    "format-alt": "󰥔   {:%a, %d. %b  %I:%M %p}",
+    "tooltip": false
   },
 
   "battery": {
