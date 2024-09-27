@@ -16,6 +16,11 @@ create_symlink() {
   fi
 }
 
+# WARNING!
+# create_symlink()
+# Remember the second argument (link) gets deleted, so specify the config
+# to avoid deleting the whole .config directory!
+
 symlinks() {
   # hypr
   create_symlink "$DOTFILES_PATH"/hypr "$HOME"/.config/hypr
