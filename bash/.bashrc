@@ -22,6 +22,25 @@ editfile() {
   [ -n "$file" ] && $EDITOR "$file"
 }
 
+note() {
+  provider="${1:-gdrive}"
+
+  # Check if the provider is already mounted
+  if mount | grep ~/"$provider" >/dev/null; then
+    echo "$provider is already mounted."
+  else
+    echo "Mounting $provider..."
+    rclone mount "$provider": ~/"$provider" --vfs-cache-mode writes &
+  fi
+
+  sleep 1
+  cd ~/Notes
+
+  echo "Opening notes with $EDITOR"
+  sleep 1
+  $EDITOR .
+}
+
 # Custom aliases
 alias ef='editfile'
 alias cdf='cd $(find -type d | fzf)'
