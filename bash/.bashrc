@@ -23,7 +23,7 @@ editfile() {
 }
 
 note() {
-  provider="${1:-gdrive}"
+  provider="${1:-gdrive}" # gdrive as default argument
 
   # Check if the provider is already mounted
   if mount | grep ~/"$provider" >/dev/null; then

@@ -54,6 +54,11 @@ Custom aliases
 | cdf | search directories with fzf and change directory on `Enter` |
 | bb | Bashbuddy |
 
+Custom functions  
+| Functions | Description |
+|:---------:|:-----------:|
+| note      | mount and open cloud provider:/Notes |
+
 ### Terminal
 #### kitty
 **Theme:** Gruvbox Material Dark
