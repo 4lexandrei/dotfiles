@@ -34,14 +34,18 @@ symlinks() {
   # bash
   create_symlink "$DOTFILES_PATH"/bash/.bashrc "$HOME"/.bashrc
 
-  # konsole
-  create_symlink "$DOTFILES_PATH"/konsole/transparent.profile "$HOME"/.local/share/konsole/transparent.profile
-
   # kitty
   create_symlink "$DOTFILES_PATH"/kitty "$HOME"/.config/kitty
 
   # tmux
   create_symlink "$DOTFILES_PATH"/tmux "$HOME"/.config/tmux
+
+  # Others
+  # konsole
+  create_symlink "$DOTFILES_PATH"/konsole/transparent.profile "$HOME"/.local/share/konsole/transparent.profile
+
+  # dekstop-entries
+  create_symlink "$DOTFILES_PATH"/desktop-entries "$HOME"/.local/share/applications
 }
 
 symlinks
