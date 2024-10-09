@@ -31,10 +31,14 @@ note() {
   else
     echo "Mounting $provider..."
     rclone mount "$provider": ~/"$provider" --vfs-cache-mode writes &
+
+    # Wait until the provider is mounted
+    until mount | grep ~/"$provider" >/dev/null; do
+      sleep 0.5
+    done
   fi
 
-  sleep 1
-  cd ~/Notes
+  cd ~/"$provider"/Notes
 
   echo "Opening notes with $EDITOR"
   sleep 1
