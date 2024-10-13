@@ -22,20 +22,21 @@ dotfiles
 ./nvim.sh # Sets up neovim.
 ```
 
-
 ## My setup
 
 **Desktop Environment:** [`Hyprland`](#hyprland) / [`KDE Plasma`](#kde-plasma)  
 **Shell:** [`bash`](#bash)  
 **Terminal:** [`kitty`](#kitty) / [`konsole`](#konsole)  
 **Terminal Multiplexer:** [`tmux`](#tmux)  
-**Text Editor:** [`neovim`](#neovim)
+**Text Editor:** [`neovim`](#neovim)  
 
 ### Desktop Environment
 #### Hyprland
 **Terminal:** `kitty`  
 **File Manager:** `dolphin`  
-**Menu:** `rofi-wayland`
+**Menu:** `rofi-wayland`  
+**Status Bar:** `waybar`  
+
 | Actions | Keybinds |
 |:-------:|:--------:|
 | Fullscreen | `mainMod` + `F` |
@@ -48,6 +49,7 @@ dotfiles
 ### Shell
 #### bash
 Custom aliases  
+
 | Aliases | Description |
 |:-------:|:-----------:|
 | ef | search files with fzf and edit with `$EDITOR` on `Enter` |
@@ -55,6 +57,7 @@ Custom aliases
 | bb | Bashbuddy |
 
 Custom functions  
+
 | Functions | Description |
 |:---------:|:-----------:|
 | note      | mount and open cloud provider:/Notes |
@@ -69,6 +72,7 @@ Custom functions
 ### Terminal Multiplexer
 #### tmux
 Keybinds
+
 | Actions | Keybinds |
 |:-------:|:--------:|
 | Split panes | `C-b` + `\|` or `-` |
@@ -78,12 +82,14 @@ Keybinds
 #### neovim
 ##### nvim
 Neovim default
+
 ##### lazyvim
 Neovim distro + additional plugins  
-**Theme:** Gruvbox  
+**Theme:** Gruvbox Material  
 **Plugins:**
 - Markdown Preview
 - Custom Dashboard
 
-Disabled conceallevel for `.md` filetype
+Disabled conceallevel for `.md` filetype  
+Disabled spellcheck for `.md` filetype
 
