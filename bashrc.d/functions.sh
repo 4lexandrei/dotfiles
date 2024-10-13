@@ -7,9 +7,14 @@ note() {
 
   cd "$target_directory" || return
 
-  echo "Initializing syncthing..."
-  syncthing -no-browser >/dev/null &
-  disown # Starts syncthing in the background
+  if ! pgrep -x "syncthing" >/dev/null; then
+    echo "Initializing syncthing..."
+    syncthing -no-browser >/dev/null &
+    disown # Starts syncthing in the background
+  else
+    echo "Syncthing is already running"
+  fi
+
   sleep 0.5
 
   # Select subfolder
@@ -28,8 +33,6 @@ note() {
   $EDITOR .
 
   cd ~
-  killall syncthing
-  echo "Syncthing has been terminated."
 }
 
 notes() {
