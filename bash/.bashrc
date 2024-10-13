@@ -38,12 +38,33 @@ note() {
     done
   fi
 
-  cd ~/"$provider"/Notes
+  cd ~/"$provider"/Notes || return
 
-  echo "Opening notes with $EDITOR"
+  # Select subfolder
+  folders=$(find . -mindepth 1 -maxdepth 1 -type d ! -name '.*' ! -name 'Excalidraw' | sed 's|^\./||')
+  selected_folder=$(echo "$folders" | fzf --prompt="Please select: " --border --reverse)
+  selected_folder=$(echo "$selected_folder" | xargs)
+
+  # Navigate to folder if selected
+  if [[ -n selected_folder ]]; then
+    echo "Opening $selected_folder notes with $EDITOR"
+    cd "$selected_folder"
+  else
+    echo "Opening notes with $EDITOR"
+  fi
+
   sleep 1
   $EDITOR .
+
+  cd ~
 }
+
+# Custom configs
+export FZF_DEFAULT_OPTS="
+  --bind 'ctrl-j:down,ctrl-k:up' \
+  --bind 'alt-j:preview-down,alt-k:preview-up' \
+  --layout=reverse --border --pointer='>'
+"
 
 # Custom aliases
 alias ef='editfile'
