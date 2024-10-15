@@ -3,6 +3,9 @@
 note() {
   # nvim notes with syncthing
 
+  # Open Obsidian
+  obsidian >/dev/null 2>&1 &
+
   local target_directory="$HOME"/Documents/Notes
 
   cd "$target_directory" || return
@@ -23,16 +26,17 @@ note() {
   selected_folder=$(echo "$selected_folder" | xargs)
 
   # Navigate to folder if selected
-  if [[ -n selected_folder ]]; then
+  if [[ -n "$selected_folder" ]]; then
     echo "Opening $selected_folder notes with $EDITOR"
-    cd "$selected_folder"
+    cd "$selected_folder" || return
   else
     echo "Opening notes with $EDITOR"
   fi
 
+  # Open current directory with EDITOR
   $EDITOR .
 
-  cd ~
+  cd ~ || return
 }
 
 notes() {
@@ -61,9 +65,9 @@ notes() {
   selected_folder=$(echo "$selected_folder" | xargs)
 
   # Navigate to folder if selected
-  if [[ -n selected_folder ]]; then
+  if [[ -n "$selected_folder" ]]; then
     echo "Opening $selected_folder notes with $EDITOR"
-    cd "$selected_folder"
+    cd "$selected_folder" || return
   else
     echo "Opening notes with $EDITOR"
   fi
@@ -71,7 +75,7 @@ notes() {
   sleep 1
   $EDITOR .
 
-  cd ~
+  cd ~ || return
 }
 
 editfile() {
