@@ -35,13 +35,17 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
 -- Toggle function for enabling/disabling auto-open
 function M.toggle_auto_open()
-  -- make sure to update obsidian
-  M.open_obsidian_preview()
-
-  -- toggle
+  -- Toggle
+  local previous_state = M.auto_open_enabled
   M.auto_open_enabled = not M.auto_open_enabled
+
   local status = M.auto_open_enabled and "enabled" or "disabled"
   print("Obsidian auto-open " .. status)
+
+  -- Update the in Obsidian
+  if not previous_state then
+    M.open_obsidian_preview()
+  end
 end
 
 -- Keybinding for toggling auto-open
