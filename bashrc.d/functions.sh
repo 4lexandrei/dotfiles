@@ -1,7 +1,9 @@
 # Functions
 
 note() {
-  # nvim notes with syncthing
+  # Notes
+
+  # nvim + syncthing + obsidian
 
   # Open Obsidian
   obsidian >/dev/null 2>&1 &
@@ -11,9 +13,13 @@ note() {
   cd "$target_directory" || return
 
   if ! pgrep -x "syncthing" >/dev/null; then
+    # Initialize syncthing in the background
     echo "Initializing syncthing..."
     syncthing -no-browser >/dev/null &
-    disown # Starts syncthing in the background
+    disown
+
+    # Add 10 seconds delay to allow Syncthing sync missing files
+    sleep 10
   else
     echo "Syncthing is already running"
   fi
