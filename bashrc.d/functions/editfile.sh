@@ -2,6 +2,7 @@
 
 editfile() {
   file=$(fzf \
+    --prompt "Open with $EDITOR: " \
     --reverse \
     --pointer ">" \
     --preview "bat --color=always {}" \
