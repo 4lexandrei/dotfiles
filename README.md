@@ -1,89 +1,26 @@
 # dotfiles
 
-## How to use
-Clone repository
-```bash
-git clone https://github.com/4lexandrei/dotfiles.git ~/.dotfiles
-```
-Symlink dotfiles command
-```bash
-ln -snf ~/.dotfiles/bin/dotfiles ~/.local/bin/
-```
-Run command 
-```bash
-dotfiles
-```
+This repository contains my personal dotfiles.
 
-> **INFO:**  
-```bash
-./main.sh # Symlinks repository dotfiles to your system.
-```
-```bash
-./nvim.sh # Sets up neovim.
-```
+![pacman-gruvbox](screenshots/gruvbox-dotfiles.png)
 
 ## My setup
 
-**Desktop Environment:** [`Hyprland`](#hyprland) / [`KDE Plasma`](#kde-plasma)  
-**Shell:** [`bash`](#bash)  
-**Terminal:** [`kitty`](#kitty) / [`konsole`](#konsole)  
-**Terminal Multiplexer:** [`tmux`](#tmux)  
-**Text Editor:** [`neovim`](#neovim)  
-
-### Desktop Environment
-#### Hyprland
+**Desktop Environment:** [`Hyprland`](hypr/README.md)  
+**Shell:** [`bash`](bashrc.d/README.md)  
 **Terminal:** `kitty`  
-**File Manager:** `dolphin`  
-**Menu:** `rofi-wayland`  
-**Status Bar:** `waybar`  
+**Terminal Multiplexer:** [`tmux`](tmux/README.md)  
+**Text Editor:** `neovim`  
+**Colorscheme:** `Gruvbox Material`
 
-| Actions | Keybinds |
-|:-------:|:--------:|
-| Fullscreen | `mainMod` + `F` |
-| Togglesplit | `mainMod` + `T` |
-| Move focus | `mainMod` + `vim mode` |
-| Swapwindow | `mainMod` + `arrow keys` |
+### neovim
 
-#### KDE Plasma
+#### nvim
 
-### Shell
-#### bash
-Custom aliases  
-
-| Aliases | Description |
-|:-------:|:-----------:|
-| ef | search files with fzf and edit with `$EDITOR` on `Enter` |
-| cdf | search directories with fzf and change directory on `Enter` |
-| bb | Bashbuddy |
-
-Custom functions  
-
-| Functions | Description |
-|:---------:|:-----------:|
-| note      | mount and open cloud provider:/Notes |
-
-### Terminal
-#### kitty
-**Theme:** Gruvbox Material Dark
-- Transparent background
-#### konsole
-- Transparent background
-
-### Terminal Multiplexer
-#### tmux
-Keybinds
-
-| Actions | Keybinds |
-|:-------:|:--------:|
-| Split panes | `C-b` + `\|` or `-` |
-| Select panes | `C-b` + `vim mode` |
-
-### Text Editor
-#### neovim
-##### nvim
 Neovim default
 
-##### lazyvim
+#### lazyvim
+
 Neovim distro + additional plugins  
 **Theme:** Gruvbox Material  
 **Plugins:**
@@ -93,3 +30,29 @@ Neovim distro + additional plugins
 Disabled conceallevel for `.md` filetype  
 Disabled spellcheck for `.md` filetype
 
+## Installation
+
+Clone repository
+```bash
+git clone https://github.com/4lexandrei/dotfiles.git ~/.dotfiles
+```
+Symlink dotfiles command
+```bash
+ln -snf ~/.dotfiles/bin/dotfiles ~/.local/bin/
+```
+
+## Usage
+
+Run command 
+```bash
+dotfiles
+```
+
+> [!NOTE]
+> Select:
+> ```bash
+> ./main.sh # Symlinks repository dotfiles to your system.
+> ```
+> ```bash
+> ./nvim.sh # Sets up neovim.
+> ```
