@@ -23,8 +23,8 @@ note() {
     syncthing -no-browser >/dev/null &
     disown
 
-    # Add 10 seconds delay to allow Syncthing sync missing files
-    for i in {10..1}; do
+    # Add 12 seconds delay to allow Syncthing sync missing files
+    for i in {12..1}; do
       echo -ne "\rWaiting for sync: $i seconds remaning"
       sleep 1
     done
