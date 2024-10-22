@@ -2,26 +2,40 @@
 
 screenshot() {
   local save_dir="$HOME/Pictures/Screenshots"
-  local save_as
-  save_as="$save_dir/screenshot-$(date +%F_%T).png"
+  local new_save
+  new_save="$save_dir/screenshot-$(date +%F_%T).png"
 
   # Create Screenshot dir if it doesn't exist
   mkdir -p "$save_dir"
 
   if [[ "$1" == "cut" || "$1" == "-c" ]]; then
     # Capture region with slurp
-    region=$(slurp)
-
-    if [ -z "$region" ]; then
-      echo "Screenshot canceled."
-      return 1 # Exit if ESC is pressed
-    fi
-
-    grim -g "$region" "$save_as"
+    grim -g "$(slurp)" "$new_save"
   else
     # Full-screen screenshot
-    grim "$save_as"
+
+    for i in {4..1}; do
+      echo -ne "\rTaking fullscreen screenshot in $i seconds..."
+      sleep 1
+    done
+
+    echo ""
+
+    grim "$new_save"
   fi
+
+  # Prompt for new filename after taking the screenshot
+  echo -ne "Rename screenshot or press 'Enter' to keep default: "
+  read -r screenshot_name
+
+  if [[ -n "$screenshot_name" ]]; then
+    local save_as="$save_dir/$screenshot_name.png"
+    mv "$new_save" "$save_as"
+    echo "Screenshot saved as $save_as"
+  else
+    echo "Screenshot saved as $new_save"
+  fi
+
 }
 
 preview_pictures() {

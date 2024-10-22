@@ -23,12 +23,14 @@ note() {
     syncthing -no-browser >/dev/null &
     disown
 
+    echo "Please check if devices are on the same WIFI SSID to ensure syncing."
+
     # Add 12 seconds delay to allow Syncthing sync missing files
-    for i in {12..1}; do
+    for i in {13..1}; do
       echo -ne "\rWaiting for sync: $i seconds remaning"
       sleep 1
     done
-    echo -e "\n Syncthing initialization complete. Files are ready for editing."
+    echo -e "\nSyncthing initialization complete. Files are ready for editing."
 
   else
     echo "Syncthing is already running"
