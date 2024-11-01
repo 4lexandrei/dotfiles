@@ -10,6 +10,7 @@ return {
         "typescript-language-server",
         "eslint-lsp",
         "json-lsp",
+        "html-lsp",
       },
     },
   },
