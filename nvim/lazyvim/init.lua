@@ -2,4 +2,4 @@
 require("config.lazy")
 
 -- Load custom functions
-require("custom.obsidian-preview")
+require("custom.obsidian-sync")
