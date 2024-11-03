@@ -4,16 +4,17 @@ note() {
   # Notes
 
   # nvim + syncthing + obsidian
+  local target_directory="$HOME"/Documents/Notes
+  local encoded_target_directory
+  encoded_target_directory=$(printf "%s" "$target_directory" | sed "s/\//%2F/g; s/ /%20/g")
 
   # Opens Obsidian if not already running
-  if pgrep -fl "obsidian" >/dev/null; then
+  if pgrep -fla "electron" | grep -q "obsidian://open?path=$encoded_target_directory"; then
     echo "Obsidian is already running"
   else
-    echo "Starting Obsidian..."
-    obsidian >/dev/null 2>&1 &
+    echo "Opening Obsidian on path: $target_directory..."
+    xdg-open "obsidian://open?path=$encoded_target_directory" >/dev/null 2>&1 &
   fi
-
-  local target_directory="$HOME"/Documents/Notes
 
   cd "$target_directory" || return
 
