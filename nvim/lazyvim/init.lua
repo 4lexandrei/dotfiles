@@ -2,4 +2,4 @@
 require("config.lazy")
 
 -- Load custom functions
-require("custom.obsidian-sync")
+require("custom.neovim-obsidian")

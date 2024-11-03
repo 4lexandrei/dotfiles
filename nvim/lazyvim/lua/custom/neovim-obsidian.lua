@@ -1,10 +1,10 @@
 local M = {}
 local curl = require("plenary.curl")
 local last_cursor_line = -1 -- Initialize to an invalid line number
-local last_request_time = 0 -- Timestamp of the last request
 local debounce_timeout = 300 -- Trottle timeout
 local vault_path = "/home/alexandrei/Documents/Notes"
 local active = false
+local PORT = 9000
 
 -- collect neovim data
 function M.get_cursor_data()
@@ -32,7 +32,7 @@ end
 function M.send_request(data)
   local payload = vim.json.encode(data)
   curl.request({
-    url = "http://localhost:8000/rpc",
+    url = "http://localhost:" .. PORT .. "/rpc",
     method = "POST",
     headers = {
       ["Content-Type"] = "application/json",
@@ -41,7 +41,13 @@ function M.send_request(data)
     on_error = function(res)
       print(res.message)
     end,
-    callback = function() end,
+    callback = function(res)
+      if res and res.status == 200 then
+        return
+      else
+        print("Unexpected response status", res.status)
+      end
+    end,
   })
 end
 
@@ -49,13 +55,13 @@ end
 function M.on_cursor_moved()
   if M.is_in_vault() and active then
     local current_line = vim.fn.getpos(".")[2]
-    local current_time = vim.loop.now()
 
-    -- Only send a request if the line has changed
-    if current_line ~= last_cursor_line and (current_time - last_request_time >= debounce_timeout) then
-      last_cursor_line = current_line -- Update the last cursor line
-      last_request_time = current_time --Update the last request time
-      M.send_request(M.get_cursor_data())
+    if current_line ~= last_cursor_line then
+      last_cursor_line = current_line
+
+      vim.defer_fn(function()
+        M.send_request(M.get_cursor_data())
+      end, debounce_timeout)
     end
   end
 end
