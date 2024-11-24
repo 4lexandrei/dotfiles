@@ -23,12 +23,6 @@ Neovim default
 
 Neovim distro + additional plugins  
 **Theme:** Gruvbox Material  
-**Plugins:**
-- Markdown Preview
-- Custom Dashboard
-
-Disabled conceallevel for `.md` filetype  
-Disabled spellcheck for `.md` filetype
 
 ## Installation
 
