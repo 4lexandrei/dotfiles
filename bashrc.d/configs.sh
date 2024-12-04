@@ -5,11 +5,25 @@ export TERM=xterm-256color
 
 bind 'TAB:menu-complete'
 
+# Custom PATH
+export PATH="$HOME/.local/bin:$PATH"
+
+# Start of FZF configuration
+
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
-FZF_PREVIEW_DIRS="eza --tree --icons --color=always {}"
-FZF_PREVIEW_FILES="bat -n --color=always {}"
+if command -v eza &>/dev/null; then
+  FZF_PREVIEW_DIRS="eza --tree --icons --color=always {}"
+else
+  FZF_PREVIEW_DIRS="ls -al {}"
+fi
+
+if command -v bat &>/dev/null; then
+  FZF_PREVIEW_FILES="bat -n --color=always {}"
+else
+  FZF_PREVIEW_FILES="cat {}"
+fi
 
 export FZF_DEFAULT_OPTS="
   --prompt 'Search: ' \
@@ -26,5 +40,4 @@ export FZF_CTRL_T_OPTS="--preview '${FZF_PREVIEW_FILES}'"
 # Print tree structure in the preview window
 export FZF_ALT_C_OPTS="--preview '${FZF_PREVIEW_DIRS}'"
 
-# Custom PATH
-export PATH="$HOME/.local/bin:$PATH"
+# End of FZF configuration

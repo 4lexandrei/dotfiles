@@ -14,4 +14,4 @@ alias mg='my-gits'
 
 # Git
 alias gs='git status'
-alias gdt='git difftool --cached && git difftool'
+alias gdt='git difftool'
