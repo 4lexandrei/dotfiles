@@ -7,12 +7,28 @@ create_symlink() {
   local target="$1"
   local link="$2"
 
+  # Ensure target exists
+  if [ ! -e "$target" ]; then
+    echo "[ERROR] Target $target does not exists"
+  fi
+
+  confirmation_prompt() {
+    if [[ ! "$confirmation" =~ ^[Yy]$ ]]; then
+      echo "Aborted."
+    else
+      rm -rf "$link"
+      ln -snf "$target" "$link"
+      echo "Created symlink: $target -> $link"
+    fi
+  }
+
+  # Check if link is a symlink
   if [ ! -L "$link" ]; then
-    rm -rf "$link"
-    ln -snf "$target" "$link"
-    echo "Created symlink: $target -> $link"
+    read -rp "Creating symlink: $target -> $link do you want to continue? [y/N]: " confirmation
+    confirmation_prompt
   else
-    echo "$link already a symlink"
+    read -rp "$link already a symlink. Do you want to overwrite it? [y/N]: " confirmation
+    confirmation_prompt
   fi
 }
 

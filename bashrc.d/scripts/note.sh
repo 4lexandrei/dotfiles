@@ -13,7 +13,7 @@ note() {
     echo "Obsidian is already running"
   else
     echo "Opening Obsidian on path: $target_directory..."
-    xdg-open "obsidian://open?path=$encoded_target_directory" >/dev/null 2>&1 &
+    nohup xdg-open "obsidian://open?path=$encoded_target_directory" >/dev/null 2>&1 &
   fi
 
   cd "$target_directory" || return
@@ -27,7 +27,7 @@ note() {
     echo "[TIP] Please check if devices are on the same WIFI SSID to ensure syncing."
 
     # Add 10 seconds delay to allow Syncthing sync missing files
-    for i in {11..1}; do
+    for i in {10..1}; do
       echo -ne "\rWaiting for sync: $i seconds remaning... "
       sleep 1
     done

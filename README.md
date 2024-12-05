@@ -30,16 +30,11 @@ Clone repository
 ```bash
 git clone https://github.com/4lexandrei/dotfiles.git ~/.dotfiles
 ```
-Symlink dotfiles command
-```bash
-ln -snf ~/.dotfiles/bin/dotfiles ~/.local/bin/
-```
-
 ## Usage
 
-Run command 
+run dotfiles setup command
 ```bash
-dotfiles
+~/.dotfiles/bin/dotfiles
 ```
 
 > [!NOTE]

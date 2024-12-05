@@ -17,27 +17,29 @@ check_path
 
 execute() {
   run_script() {
-    scripts=($(find "$DOTFILES_PATH"/setup -type f -name "*.sh" -executable))
+    mapfile -t scripts < <(find "$DOTFILES_PATH"/setup -type f -name "*.sh" -executable)
 
     clear
 
-    local choice=$(printf '%s\n' "${scripts[@]}" | fzf --header="Run:" --border)
+    # Ensure fzf is installed
+    if ! command -v fzf >/dev/null; then
+      echo "[ERROR]: fzf is required. Please install fzf to continue"
+      exit 1
+    fi
 
-    gum style "Dotfiles"
+    local choice
+    choice=$(printf '%s\n' "${scripts[@]}" | fzf --header="Run:" --border)
+
+    echo -ne "┌──────────┐\n│ Dotfiles │\n└──────────┘\n"
 
     echo "$choice"
 
     if [ -n "$choice" ]; then
-      if command -v gum &>/dev/null; then
-        echo "Press 'Enter' to continue or 'Ctrl + C' to cancel."
-        read
-        gum spin --title="Running $choice..." sleep 1
-        "$choice"
-      else
-        echo "Running $choice..." &
-        sleep 1
-        "$choice"
-      fi
+      echo "Press 'Enter' to continue or 'Ctrl + C' to cancel."
+      read -r
+      echo "Running $choice..." &
+      sleep 1
+      "$choice"
     else
       echo "No script selected." &
       sleep 1
