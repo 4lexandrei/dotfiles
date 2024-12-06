@@ -14,6 +14,7 @@ note() {
   else
     echo "Opening Obsidian on path: $target_directory..."
     nohup xdg-open "obsidian://open?path=$encoded_target_directory" >/dev/null 2>&1 &
+    disown
   fi
 
   cd "$target_directory" || return
