@@ -10,25 +10,64 @@ create_symlink() {
   # Ensure target exists
   if [ ! -e "$target" ]; then
     echo "[ERROR] Target $target does not exists"
+    return 1
   fi
 
-  confirmation_prompt() {
-    if [[ ! "$confirmation" =~ ^[Yy]$ ]]; then
-      echo "Aborted."
+  # Handle existing links or directories
+  if [ -e "$link" ] || [ -L "$link" ]; then
+    echo ""
+    echo "$link already exists."
+
+    # Proceed with overwriting prompt
+    read -rp "Do you want to overwrite it? [y/N]: " overwrite_confirmation
+    if [[ ! "$overwrite_confirmation" =~ ^[Yy]$ ]]; then
+      echo "Skipped overwriting $link."
+      return 1
     else
+      # Backup prompts before overwriting
+      backup "$link"
+
+      # Overwrite symlink
       rm -rf "$link"
+      ln -snf "$target" "$link"
+      echo "Overwritten $link. $target --> $link"
+    fi
+  else
+    # confirmation prompt before creating the symlink
+    echo ""
+    read -rp "Creating symlink: $target -> $link do you want to continue? [y/N]: " confirmation
+    if [[ ! "$confirmation" =~ ^[Yy]$ ]]; then
+      echo "Skipped creating symlink for $link".
+      return 1
+    else
+      # Create the symlink
       ln -snf "$target" "$link"
       echo "Created symlink: $target -> $link"
     fi
-  }
+  fi
+}
 
-  # Check if link is a symlink
-  if [ ! -L "$link" ]; then
-    read -rp "Creating symlink: $target -> $link do you want to continue? [y/N]: " confirmation
-    confirmation_prompt
-  else
-    read -rp "$link already a symlink. Do you want to overwrite it? [y/N]: " confirmation
-    confirmation_prompt
+backup() {
+  local link="$1"
+
+  read -rp "Do you want to create a backup of $link before overwriting? [y/N]: " backup_confirmation
+  if [[ "$backup_confirmation" =~ ^[Yy]$ ]]; then
+    if [ -e "${link}.bak" ]; then
+      # If a backup already exists, ask whether to overwrite it
+      read -rp "A backup already exists (${link}.bak). Overwrite it? [y/N]: " replace_backup_confirmation
+      if [[ "$replace_backup_confirmation" =~ ^[Yy]$ ]]; then
+        rm -rf "${link}.bak"
+        echo "Replacing backup..."
+      else
+        echo "Skipping backup creation."
+      fi
+    fi
+
+    # Create a backup if it doesn't already exist
+    if [ ! -e "${link}.bak" ]; then
+      mv "$link" "${link}.bak"
+      echo "Backup created: $link --> ${link}.bak"
+    fi
   fi
 }
 
