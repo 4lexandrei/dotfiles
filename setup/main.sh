@@ -95,8 +95,6 @@ symlinks() {
   # tmux
   create_symlink "$DOTFILES_PATH"/tmux "$HOME"/.config/tmux
 
-  # Others
-
   # dekstop-entries
   create_symlink "$DOTFILES_PATH"/desktop-entries "$HOME"/.local/share/applications
 }

@@ -4,10 +4,6 @@ alias ll='ls -al'
 
 alias sb='source .bashrc'
 
-alias ef='editfile'
-alias cdf='cd $(find -type d | fzf)'
-alias zedf='zeditor $(find -type d | fzf)'
-
 alias pp='preview_pictures'
 alias sshot='screenshot'
 alias bb='bashbuddy'

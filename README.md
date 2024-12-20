@@ -45,3 +45,22 @@ run dotfiles setup command
 > ```bash
 > ./nvim.sh # Sets up neovim.
 > ```
+
+---
+
+## Windows Support
+
+For Windows users, open Powershell as Administrator and run the following snippet to create symlinks
+```powershell
+New-Item -ItemType SymbolicLink -Path "link" -Target "path_to_link"
+```
+
+Examples:
+SymbolicLink for lazyvim
+```powershell
+New-Item -ItemType SymbolicLink -Path "C:\Users\alexa\AppData\Local\nvim" -Target "C:\Users\alexa\.dotfiles\nvim\lazyvim"
+```
+SymbolicLink for .bashrc
+```powershell
+New-Item -ItemType SymbolicLink -Path "C:\Users\alexa\.bashrc" -Target "C:\Users\alexa\.dotfiles\bash\.bashrc"
+```
