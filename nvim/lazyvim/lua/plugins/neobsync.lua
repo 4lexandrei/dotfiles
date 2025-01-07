@@ -5,7 +5,7 @@ local vault_path = is_windows and "C:\\Users\\alexa\\Documents\\Notes\\" or "/ho
 return {
   {
     "neobsync.nvim",
-    -- enabled = false,
+    enabled = false,
     dir = base_dir .. "neobsync.nvim",
     config = function()
       require("neobsync.config").setup({
