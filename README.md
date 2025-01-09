@@ -15,36 +15,32 @@ This repository contains my personal dotfiles.
 
 ### neovim
 
-#### nvim
+`nvim`  
 
-Neovim default
+Neovim default configuration  
 
-#### lazyvim
+`lazyvim`  
 
 Neovim distro + additional plugins  
-**Theme:** Gruvbox Material  
 
 ## Installation
 
-Clone repository
+Clone repository:
 ```bash
 git clone https://github.com/4lexandrei/dotfiles.git ~/.dotfiles
 ```
+
+For the latest (unstable) version, clone the `dev` branch:
+```bash
+git clone -b dev https://github.com/4lexandrei/dotfiles.git ~/.dotfiles
+```
+
 ## Usage
 
 run dotfiles setup command
 ```bash
 ~/.dotfiles/bin/dotfiles
 ```
-
-> [!NOTE]
-> Select:
-> ```bash
-> ./main.sh # Symlinks repository dotfiles to your system.
-> ```
-> ```bash
-> ./nvim.sh # Sets up neovim.
-> ```
 
 ---
 
@@ -58,9 +54,9 @@ New-Item -ItemType SymbolicLink -Path "link" -Target "path_to_link"
 Examples:
 SymbolicLink for lazyvim
 ```powershell
-New-Item -ItemType SymbolicLink -Path "C:\Users\alexa\AppData\Local\nvim" -Target "C:\Users\alexa\.dotfiles\nvim\lazyvim"
+New-Item -ItemType SymbolicLink -Path "C:\Users\alexa\AppData\Local\nvim" -Target "C:\Users\alexa\.dotfiles\.config\nvim\lazyvim"
 ```
 SymbolicLink for .bashrc
 ```powershell
-New-Item -ItemType SymbolicLink -Path "C:\Users\alexa\.bashrc" -Target "C:\Users\alexa\.dotfiles\bash\.bashrc"
+New-Item -ItemType SymbolicLink -Path "C:\Users\alexa\.bashrc" -Target "C:\Users\alexa\.dotfiles\.bashrc"
 ```

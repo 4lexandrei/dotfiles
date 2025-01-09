@@ -26,13 +26,18 @@ backup_nvim_config() {
 }
 
 set_nvim_config() {
+  nvim_dirs=$(find "$DOTFILES_PATH"/.config/nvim -maxdepth 1 -mindepth 1 -type d -exec basename {} \;)
+
+  local selected_nvim_conf
+  selected_nvim_conf=$(printf '%s' "$nvim_dirs" | fzf --prompt "Select nvim configuration:" --border)
+
   # nvim
-  case $1 in
+  case $selected_nvim_conf in
   nvim)
-    ln -snf "$DOTFILES_PATH/nvim/nvim" "$NVIM_CONFIG_PATH"
+    ln -snf "$DOTFILES_PATH/.config/nvim/nvim" "$NVIM_CONFIG_PATH"
     ;;
   lazyvim)
-    ln -snf "$DOTFILES_PATH/nvim/lazyvim" "$NVIM_CONFIG_PATH"
+    ln -snf "$DOTFILES_PATH/.config/nvim/lazyvim" "$NVIM_CONFIG_PATH"
     ;;
   *)
     echo "Not found"
@@ -40,11 +45,8 @@ set_nvim_config() {
     ;;
   esac
 
-  echo "Switched to $1 configuration."
+  echo "Switched to $selected_nvim_conf configuration."
 }
-
-echo -ne "Please select nvim configuration (nvim or lazyvim): "
-read -r NVIM_CONFIG
 
 backup_nvim_config
 

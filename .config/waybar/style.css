@@ -1,0 +1,46 @@
+
+* {
+  font-family: 'JetBrainsMono Nerd Font', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: #D4BE98;
+  border: none;
+}
+
+*:hover {
+  background: none;
+}
+
+window#waybar {
+  background-color: transparent;
+}
+
+.modules-left {
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+.modules-center {
+  border-radius: 5px;
+}
+
+.modules-right {
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+#workspaces {
+  border-radius: 5px;
+}
+
+#battery {
+  margin: 0 10px 0 10px;
+}
+
+#network {
+  margin: 0 10px 0 10px;
+}
+
+#clock {
+  margin: 0 10px 0 10px;
+}

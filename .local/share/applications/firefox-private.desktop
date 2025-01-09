@@ -1,0 +1,7 @@
+
+[Desktop Entry]
+Name=Firefox Private
+Exec=firefox --private-window
+Icon=firefox
+Type=Application
+Categories=Network;WebBrowser;

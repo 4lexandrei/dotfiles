@@ -76,27 +76,50 @@ backup() {
 # Remember the second argument (link) gets deleted, so specify the config
 # to avoid deleting the whole .config directory!
 
+symlink_bash() {
+  create_symlink "$DOTFILES_PATH/.bashrc" "$HOME/.bashrc"
+}
+
+symlink_config() {
+  config_dirs=$(find "$DOTFILES_PATH"/.config -maxdepth 1 -mindepth 1 -type d ! -name "nvim" -exec basename {} \;)
+
+  local selected_config_dirs
+  selected_config_dirs=$(printf '%s' "$config_dirs" | fzf --multi --prompt "Select dotfiles to symlink:" --header="Use <Tab> to select multiple entries and <Enter> to confirm" --border)
+
+  for selected_config_dir in $selected_config_dirs; do
+    if [ -n "$selected_config_dir" ]; then
+      local target="$DOTFILES_PATH/.config/$selected_config_dir"
+      local link="$HOME/.config/$selected_config_dir"
+      create_symlink "$target" "$link"
+    fi
+  done
+}
+
+symlink_local() {
+  mkdir -p "$HOME/.local/share/applications/"
+  create_symlink "$DOTFILES_PATH/.local/share/applications/firefox-private.desktop" "$HOME/.local/share/applications/firefox-private.desktop"
+  mkdir -p "$HOME/.local/share/fonts/"
+  create_symlink "$DOTFILES_PATH/.local/share/fonts/JetBrainsMono" "$HOME/.local/share/fonts/JetBrainsMono"
+}
+
 symlinks() {
-  # hypr
-  create_symlink "$DOTFILES_PATH"/hypr "$HOME"/.config/hypr
+  local symlink
+  symlink=$(echo -e "symlink bash\nsymlink .config\nsymlink .local" | fzf --prompt "Select dotfiles to symlink:" --border)
 
-  # waybar
-  create_symlink "$DOTFILES_PATH"/waybar "$HOME"/.config/waybar
-
-  # rofi
-  create_symlink "$DOTFILES_PATH"/rofi "$HOME"/.config/rofi
-
-  # bash
-  create_symlink "$DOTFILES_PATH"/bash/.bashrc "$HOME"/.bashrc
-
-  # kitty
-  create_symlink "$DOTFILES_PATH"/kitty "$HOME"/.config/kitty
-
-  # tmux
-  create_symlink "$DOTFILES_PATH"/tmux "$HOME"/.config/tmux
-
-  # dekstop-entries
-  create_symlink "$DOTFILES_PATH"/desktop-entries "$HOME"/.local/share/applications
+  case "$symlink" in
+  "symlink bash")
+    symlink_bash
+    ;;
+  "symlink .config")
+    symlink_config
+    ;;
+  "symlink .local")
+    symlink_local
+    ;;
+  *)
+    echo "No option selected"
+    ;;
+  esac
 }
 
 symlinks
