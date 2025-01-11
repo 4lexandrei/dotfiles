@@ -1,6 +1,17 @@
 
 # bashrc.d
 
+For a full functional experience please install additional packages listed below.
+
+For Archlinux:
+```bash
+pacman -S eza bat slurp grim
+```
+(optional packages):
+```bash
+pacman -S obsidian syncthing
+```
+
 ## Aliases
 
 | Aliases | Description |

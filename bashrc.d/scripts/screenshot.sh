@@ -6,7 +6,10 @@ screenshot() {
   new_save="$save_dir/screenshot-$(date +%F_%T).png"
 
   # Create Screenshot dir if it doesn't exist
-  mkdir -p "$save_dir"
+  if [[ ! -d "$save_dir" ]]; then
+    echo "Creating $save_dir as screenshots directory"
+    mkdir -p "$save_dir"
+  fi
 
   if [[ "$1" == "cut" || "$1" == "-c" ]]; then
     # Capture region with slurp
@@ -40,7 +43,12 @@ screenshot() {
 
 preview_pictures() {
   # Preview pictures in fzf with kitty icat
-  local picture_dir="$HOME/Pictures"
+  local picture_dir="${1:-$HOME/Pictures}"
+
+  if [[ ! -d "$picture_dir" ]]; then
+    echo "Directory not found: $picture_dir"
+    return 1
+  fi
 
   find "$picture_dir" -type f | fzf \
     --preview='kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {}'

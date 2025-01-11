@@ -1,15 +1,15 @@
-# dotfiles
+# 4lexandrei's dotfiles
 
 This repository contains my personal dotfiles.
 
-![pacman-gruvbox](screenshots/gruvbox-dotfiles.png)
+![pacman-gruvbox](assets/dotfiles.png)
 
 ## My setup
 
-**Desktop Environment:** [`Hyprland`](hypr/README.md)  
+**Desktop Environment:** [`Hyprland`](.config/hypr/README.md)  
 **Shell:** [`bash`](bashrc.d/README.md)  
 **Terminal:** `kitty`  
-**Terminal Multiplexer:** [`tmux`](tmux/README.md)  
+**Terminal Multiplexer:** [`tmux`](.config/tmux/README.md)  
 **Text Editor:** `neovim`  
 **Colorscheme:** `Gruvbox Material`
 
@@ -21,7 +21,7 @@ Neovim default configuration
 
 `lazyvim`  
 
-Neovim distro + additional plugins  
+[LazyVim](https://github.com/LazyVim/LazyVim) neovim setup + additional plugins  
 
 ## Installation
 
@@ -37,7 +37,7 @@ git clone -b dev https://github.com/4lexandrei/dotfiles.git ~/.dotfiles
 
 ## Usage
 
-run dotfiles setup command
+Run dotfiles setup command
 ```bash
 ~/.dotfiles/bin/dotfiles
 ```
