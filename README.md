@@ -12,6 +12,7 @@ This repository contains my personal dotfiles.
 **Terminal Multiplexer:** [`tmux`](.config/tmux/README.md)  
 **Text Editor:** `neovim`  
 **Colorscheme:** `Gruvbox Material`
+**Font:** `JetbrainsMono Nerd Font`
 
 ### neovim
 

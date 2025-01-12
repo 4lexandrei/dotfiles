@@ -4,7 +4,7 @@
 > [!NOTE]
 > Current configuration limits number of workspaces to 5. For additional workspaces please edit `.config/hypr/hyprland.conf`.
 
-Please intall below packages to make hyprland configuration fully functional.
+Please install below packages to make hyprland configuration fully functional.
 
 For Archlinux:
 ```bash

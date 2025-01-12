@@ -6,12 +6,6 @@ note() {
   local encoded_target_directory
   encoded_target_directory=$(printf "%s" "$target_directory" | sed "s/\//%2F/g; s/ /%20/g")
 
-  # Creates note directory if not already existing
-  if [[ ! -d "$target_directory" ]]; then
-    echo "Creating notes directory: $target_directory"
-    mkdir -p "$target_directory"
-  fi
-
   # Opens Obsidian if not already running
   if pgrep -fla "electron" | grep -q "obsidian://open?path=$encoded_target_directory"; then
     echo "Obsidian is already running"

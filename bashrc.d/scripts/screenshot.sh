@@ -43,7 +43,10 @@ screenshot() {
 
 preview_pictures() {
   # Preview pictures in fzf with kitty icat
-  local picture_dir="${1:-$HOME/Pictures}"
+  local dir=$1
+  local picture_dir="$HOME/Pictures"
+
+  dir="${dir:-$picture_dir}"
 
   if [[ ! -d "$picture_dir" ]]; then
     echo "Directory not found: $picture_dir"

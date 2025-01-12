@@ -30,7 +30,7 @@ execute() {
     local choice
     choice=$(printf '%s\n' "${scripts[@]}" | fzf --header="Run:" --border)
 
-    echo -ne "┌──────────┐\n│ Dotfiles │\n└──────────┘\n"
+    echo -ne "┌───────────────────────┐\n│ 4lexandrei's Dotfiles │\n└───────────────────────┘\n"
 
     echo "$choice"
 
