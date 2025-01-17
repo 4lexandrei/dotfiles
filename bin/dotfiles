@@ -1,51 +1,54 @@
 #!/bin/bash
 # dotfiles - Main entry script
 
-check_path() {
+get_dotfiles_path() {
   if [ ! -L "$0" ]; then
     # If path is no symlink
-    DOTFILES_PATH="$(dirname "$0")/.."
+    DOTFILES_PATH="$(realpath "$(dirname "$0")/..")"
   else
-    if command -v readlink >/dev/null; then
-      # If readlink is available, follow symlink
-      DOTFILES_PATH="$(dirname "$(realpath "$0")")/.."
-    fi
+    # If symlink
+    DOTFILES_PATH="$(dirname "$(realpath "$0")")/.."
   fi
 }
 
-check_path
+get_dotfiles_path
 
-execute() {
-  run_script() {
-    mapfile -t scripts < <(find "$DOTFILES_PATH"/setup -type f -name "*.sh" -executable)
+check_dependencies() {
+  # Ensure fzf is installed
+  local dependencies=("fzf")
 
-    clear
-
-    # Ensure fzf is installed
-    if ! command -v fzf >/dev/null; then
-      echo "[ERROR]: fzf is required. Please install fzf to continue"
+  for dep in "${dependencies[@]}"; do
+    if ! command -v "$dep" >/dev/null; then
+      echo "[ERROR]: $dep is required. Please install $dep to continue."
       exit 1
     fi
-
-    local choice
-    choice=$(printf '%s\n' "${scripts[@]}" | fzf --header="Run:" --border)
-
-    echo -ne "┌───────────────────────┐\n│ 4lexandrei's Dotfiles │\n└───────────────────────┘\n"
-
-    echo "$choice"
-
-    if [ -n "$choice" ]; then
-      echo "Press 'Enter' to continue or 'Ctrl + C' to cancel."
-      read -r
-      echo "Running $choice..." &
-      sleep 1
-      "$choice"
-    else
-      echo "No script selected." &
-      sleep 1
-    fi
-  }
-  run_script
+  done
 }
 
+execute() {
+  clear
+
+  local scripts
+  scripts=$(find "$DOTFILES_PATH"/setup -type f -name "*.sh" -executable)
+
+  local selected_script
+  selected_script=$(
+    printf "%s\n" "${scripts[@]}" |
+      fzf --prompt="Run: " --border --with-nth -1 --delimiter /
+  )
+
+  # ┌───────────────────────┐
+  # │ 4lexandrei's Dotfiles │
+  # └───────────────────────┘
+  echo -ne "┌───────────────────────┐\n│ 4lexandrei's Dotfiles │\n└───────────────────────┘\n"
+
+  if [ -n "$selected_script" ]; then
+    echo ":: Running $(basename "$selected_script")..."
+    "$selected_script"
+  else
+    echo "No script selected."
+  fi
+}
+
+check_dependencies
 execute

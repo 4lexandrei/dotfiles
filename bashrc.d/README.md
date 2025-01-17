@@ -14,30 +14,33 @@ pacman -S obsidian syncthing
 
 ## Aliases
 
-| Aliases | Description |
-|:-------:|:-----------:|
-| ef | search files with fzf and edit with `$EDITOR` on `Enter` |
-| cdf | search directories with fzf and change directory on `Enter` |
-| bb | Bashbuddy |
+| Aliases | Description      |
+|:-------:|:----------------:|
+| sb      | Source `.bashrc` |
+| gs      | Git status       |
+| gdt     | Git difftool     |
 
-## Functions
+| Script aliases | Description      |
+|:--------------:|:----------------:|
+| mg             | My gits          |
+| sshot          | Screenshot       |
+| pp             | Preview pictures |
 
-The `note()` function opens `~/Documents/Notes/` with `nvim` alongside with `obsidian` and syncthing.
+## Scripts
 
----
+### note()
 
-The `screenshot()` function takes screenshots with `grim` and `slurp`
+Opens `~/Documents/Notes/` with `nvim` alongside with `obsidian` and syncthing for note-taking.
 
-```bash
-alias='sshot'
-```
+### my-gits()
 
+Easily list, navigate and check the status of your remote git repositories cloned on your machine.
+
+### screenshot()
+
+Take screenshots with `grim` and `slurp`.  
 Flags `-c` or `cut` screenshots a selected region.
 
----
+### preview_pictures()
 
-The `preview_pictures()` previews images with `fzf + kitty icat`
-
-```bash
-alias='pp'
-```
+Preview images with `fzf + kitty icat`.

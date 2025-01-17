@@ -1,125 +1,122 @@
 #!/bin/bash
 
-DOTFILES_PATH="$(dirname "$(realpath "$0")")/.."
+DOTFILES_PATH="$(realpath "$(dirname "$0")/..")"
 
-# Create symlink, if not already
-create_symlink() {
+symlink() {
   local target="$1"
   local link="$2"
 
+  target=$DOTFILES_PATH/$target
+  link=$HOME/$link
+
   # Ensure target exists
   if [ ! -e "$target" ]; then
-    echo "[ERROR] Target $target does not exists"
+    echo "[ERROR] Target $target does not exists."
     return 1
   fi
 
   # Handle existing links or directories
   if [ -e "$link" ] || [ -L "$link" ]; then
-    echo ""
-    echo "$link already exists."
-
-    # Proceed with overwriting prompt
-    read -rp "Do you want to overwrite it? [y/N]: " overwrite_confirmation
-    if [[ ! "$overwrite_confirmation" =~ ^[Yy]$ ]]; then
-      echo "Skipped overwriting $link."
-      return 1
-    else
-      # Backup prompts before overwriting
-      backup "$link"
-
-      # Overwrite symlink
-      rm -rf "$link"
-      ln -snf "$target" "$link"
-      echo "Overwritten $link. $target --> $link"
-    fi
+    # Overwrite symlink
+    rm -rf "$link"
+    ln -snf "$target" "$link"
+    echo -e "Overwritten $link:\n$target --> $link"
   else
-    # confirmation prompt before creating the symlink
-    echo ""
-    read -rp "Creating symlink: $target -> $link do you want to continue? [y/N]: " confirmation
-    if [[ ! "$confirmation" =~ ^[Yy]$ ]]; then
-      echo "Skipped creating symlink for $link".
-      return 1
-    else
-      # Create the symlink
-      ln -snf "$target" "$link"
-      echo "Created symlink: $target -> $link"
-    fi
+    # Create the symlink
+    ln -snf "$target" "$link"
+    echo "Created symlink: $target -> $link"
   fi
 }
 
-backup() {
-  local link="$1"
+# WARNING:
+# symlink()
+# Remember the second argument (link) gets permanently deleted, so specify correct a link
+# to avoid deleting a different file or directory!
 
-  read -rp "Do you want to create a backup of $link before overwriting? [y/N]: " backup_confirmation
-  if [[ "$backup_confirmation" =~ ^[Yy]$ ]]; then
-    if [ -e "${link}.bak" ]; then
-      # If a backup already exists, ask whether to overwrite it
-      read -rp "A backup already exists (${link}.bak). Overwrite it? [y/N]: " replace_backup_confirmation
-      if [[ "$replace_backup_confirmation" =~ ^[Yy]$ ]]; then
-        rm -rf "${link}.bak"
-        echo "Replacing backup..."
-      else
-        echo "Skipping backup creation."
-      fi
-    fi
-
-    # Create a backup if it doesn't already exist
-    if [ ! -e "${link}.bak" ]; then
-      mv "$link" "${link}.bak"
-      echo "Backup created: $link --> ${link}.bak"
-    fi
-  fi
-}
-
-# WARNING!
-# create_symlink()
-# Remember the second argument (link) gets deleted, so specify the config
-# to avoid deleting the whole .config directory!
-
-symlink_bash() {
-  create_symlink "$DOTFILES_PATH/.bashrc" "$HOME/.bashrc"
+symlink_bashrc() {
+  symlink ".bashrc" ".bashrc"
 }
 
 symlink_config() {
-  config_dirs=$(find "$DOTFILES_PATH"/.config -maxdepth 1 -mindepth 1 -type d ! -name "nvim" -exec basename {} \;)
+  # INFO: nvim directory is excluded in config_dirs
+  local config_dirs
+  config_dirs=$(find "$DOTFILES_PATH"/.config -maxdepth 1 -mindepth 1 -type d ! -name "nvim")
 
-  local selected_config_dirs
-  selected_config_dirs=$(printf '%s' "$config_dirs" | fzf --multi --prompt "Select dotfiles to symlink:" --header="Use <Tab> to select multiple entries and <Enter> to confirm" --border)
+  if [ "$ALL_DOTFILES" = "true" ]; then
+    for config_dir in $config_dirs; do
+      symlink ".config/$(basename "$config_dir")" ".config/$(basename "$config_dir")"
+    done
+  else
+    local selected_config_dirs
+    selected_config_dirs=$(
+      printf "%s\n" "$config_dirs" |
+        fzf --multi --prompt "Select dotfiles to symlink: " \
+          --header="Use <Tab> to select multiple entries and <Enter> to confirm" --border \
+          --delimiter / --with-nth -1
+    )
 
-  for selected_config_dir in $selected_config_dirs; do
-    if [ -n "$selected_config_dir" ]; then
-      local target="$DOTFILES_PATH/.config/$selected_config_dir"
-      local link="$HOME/.config/$selected_config_dir"
-      create_symlink "$target" "$link"
-    fi
-  done
+    for selected_config_dir in $selected_config_dirs; do
+      if [ -n "$selected_config_dir" ]; then
+        symlink ".config/$(basename "$selected_config_dir")" ".config/$(basename "$selected_config_dir")"
+      fi
+    done
+  fi
 }
 
 symlink_local() {
-  mkdir -p "$HOME/.local/share/applications/"
-  create_symlink "$DOTFILES_PATH/.local/share/applications/firefox-private.desktop" "$HOME/.local/share/applications/firefox-private.desktop"
-  mkdir -p "$HOME/.local/share/fonts/"
-  create_symlink "$DOTFILES_PATH/.local/share/fonts/JetBrainsMono" "$HOME/.local/share/fonts/JetBrainsMono"
+  if [ ! -d "$HOME/.local/share/applications/" ]; then
+    mkdir -p "$HOME/.local/share/applications/"
+  fi
+  if [ ! -d "$HOME/.local/share/fonts/" ]; then
+    mkdir -p "$HOME/.local/share/fonts/"
+  fi
+  symlink ".local/share/applications/firefox-private.desktop" ".local/share/applications/firefox-private.desktop"
+  symlink ".local/share/fonts/JetBrainsMono" ".local/share/fonts/JetBrainsMono"
 }
 
-symlinks() {
-  local symlink
-  symlink=$(echo -e "symlink bash\nsymlink .config\nsymlink .local" | fzf --prompt "Select dotfiles to symlink:" --border)
+select_symlink() {
+  local options
+  options=$(find "$DOTFILES_PATH" -maxdepth 1 -mindepth 1 ! -name ".git*" -name ".*")
+  options=(
+    "${options[@]}"
+    "All dotfiles"
+  )
 
-  case "$symlink" in
-  "symlink bash")
-    symlink_bash
+  local selection
+  selection=$(
+    # shellcheck disable=SC2016
+    printf "%s\n" "${options[@]}" |
+      fzf --prompt "Select dotfiles to symlink: " --border --delimiter / --with-nth -1 \
+        --preview '
+          if [[ {} == "All dotfiles" ]]; then
+            echo -ne "This option will setup every dotfiles automatically except neovim dotfiles." |
+              fold -s -w $FZF_PREVIEW_COLUMNS
+          else
+            FZF_PREVIEW {}
+          fi
+        '
+  )
+
+  case "$selection" in
+  "$DOTFILES_PATH/.bashrc")
+    symlink_bashrc
     ;;
-  "symlink .config")
+  "$DOTFILES_PATH/.config")
     symlink_config
     ;;
-  "symlink .local")
+  "$DOTFILES_PATH/.local")
+    symlink_local
+    ;;
+  "All dotfiles")
+    ALL_DOTFILES=true
+    symlink_bashrc
+    symlink_config
     symlink_local
     ;;
   *)
-    echo "No option selected"
+    echo "No option selected."
     ;;
   esac
 }
 
-symlinks
+select_symlink
