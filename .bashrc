@@ -5,6 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+export HISTSIZE=500
+
 colored_prompt=true
 
 if command -v eza &>/dev/null; then

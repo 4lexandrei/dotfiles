@@ -20,4 +20,22 @@ return {
       },
     },
   },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        sh = { "shfmt" },
+        c = { "clang-format" },
+        markdown = { "prettier" },
+        json = { "prettier" },
+        html = { "prettier" },
+        css = { "prettier" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
+        javascript = { "prettier" },
+        javascriptreact = { "prettier" },
+      },
+    },
+  },
 }

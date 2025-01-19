@@ -3,9 +3,7 @@
 -- Add any additional autocmds here
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
   callback = function()
-    vim.wo.conceallevel = 0 -- Disable conceal
     vim.opt_local.spell = false
   end,
 })
