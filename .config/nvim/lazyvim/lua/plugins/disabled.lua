@@ -10,4 +10,8 @@ return {
     name = "catppuccin",
     enabled = false,
   },
+  {
+    "folke/flash.nvim",
+    enabled = false,
+  },
 }

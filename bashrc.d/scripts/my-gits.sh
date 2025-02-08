@@ -24,8 +24,22 @@ my-gits() {
       sed 's|/\.git/config||'
   )
 
+  # shellcheck disable=SC2317
+  FZF_PREVIEW_GIT() {
+    local repo="$1"
+    echo "$repo"
+    echo "On branch: [ $(git -C "$repo" branch --show-current)]"
+    git -C "$repo" status -b -u -s
+  }
+
+  export -f FZF_PREVIEW_GIT
+
   local selected_repo
-  selected_repo=$(printf "%s\n" "${repos[@]}" | fzf --preview 'git -C {} status -b -u -s')
+  selected_repo=$(
+
+    printf "%s\n" "${repos[@]}" | fzf --delimiter / --with-nth -1 \
+      --preview 'FZF_PREVIEW_GIT {}' --preview-window=wrap
+  )
 
   if [ -n "$selected_repo" ]; then
     cd "$selected_repo" && git status || echo "Failed to change directory."

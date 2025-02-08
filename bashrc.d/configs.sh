@@ -33,10 +33,10 @@ FZF_PREVIEW_FILES() {
   fi
 }
 
-FZF_PREVIEW_PICS() {
+FZF_PREVIEW_IMGS() {
   # NOTE: Install imagemagick package to preview all image formats
-  local pic="$1"
-  kitty icat --clear --transfer-mode=memory --stdin=no --unicode-placeholder --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$pic"
+  local img="$1"
+  kitty icat --clear --transfer-mode=memory --stdin=no --unicode-placeholder --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$img"
 }
 
 FZF_PREVIEW() {
@@ -55,13 +55,13 @@ FZF_PREVIEW() {
       fi
     fi
   else
-    FZF_PREVIEW_PICS "$item"
+    FZF_PREVIEW_IMGS "$item"
   fi
 }
 
 export -f FZF_PREVIEW_DIRS
 export -f FZF_PREVIEW_FILES
-export -f FZF_PREVIEW_PICS
+export -f FZF_PREVIEW_IMGS
 export -f FZF_PREVIEW
 
 export FZF_DEFAULT_OPTS="
@@ -72,11 +72,5 @@ export FZF_DEFAULT_OPTS="
   --preview 'FZF_PREVIEW {}' \
   --color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934
 "
-
-# Preview file content using bat
-export FZF_CTRL_T_OPTS="--preview 'FZF_PREVIEW {}'"
-
-# Print tree structure in the preview window
-export FZF_ALT_C_OPTS="--preview 'FZF_PREVIEW {}"
 
 # End of FZF configuration
