@@ -50,11 +50,9 @@ Run dotfiles setup command
 
 ## Windows Support
 
-> [!TODO] To Revise
-
 For the latest (unstable) version, clone the `dev` branch:
 
-````bash
+```bash
 git clone -b dev https://github.com/4lexandrei/dotfiles.git
 ```
 
@@ -62,7 +60,7 @@ For Windows users, open Powershell as Administrator and run the following snippe
 
 ```powershell
 New-Item -ItemType SymbolicLink -Path "link" -Target "path_to_link"
-````
+```
 
 Examples:  
 SymbolicLink for lazyvim
