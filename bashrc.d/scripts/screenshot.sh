@@ -54,5 +54,5 @@ preview_pictures() {
   fi
 
   find "$dir" -type f -print0 | xargs -0 file --mime-type | grep -F 'image/' | cut -d ':' -f 1 | fzf \
-    --preview 'FZF_PREVIEW_PICS {}'
+    --preview 'FZF_PREVIEW_IMGS {}'
 }

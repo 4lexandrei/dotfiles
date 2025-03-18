@@ -13,30 +13,37 @@ my-gits() {
 
   # local repos
   # repos=$(
-  #   find "${dirs[@]}" -type f -path '*/.git/config' -exec grep -lE "url = ($github_urls)" {} + |
+  #   find "${dirs[@]}" -type f -path '*/.git/config' -print0 |
+  #     xargs -0 grep -lE "url = ($github_urls)" |
   #     sed 's|/\.git/config||'
   # )
 
-  local repos
-  repos=$(
-    find "${dirs[@]}" -type f -path '*/.git/config' -print0 |
-      xargs -0 grep -lE "url = ($github_urls)" |
-      sed 's|/\.git/config||'
-  )
+  if command -v rg &>/dev/null; then
+    # ripgrep
+    repos=$(
+      rg --hidden -l "url = ($github_urls)" --glob '**/.git/config' "${dirs[@]}" |
+        sed 's|/\.git/config||'
+    )
+  else
+    local repos
+    repos=$(
+      find "${dirs[@]}" -type f -path '*/.git/config' -exec grep -lE "url = ($github_urls)" {} + |
+        sed 's|/\.git/config||'
+    )
+  fi
 
   # shellcheck disable=SC2317
   FZF_PREVIEW_GIT() {
     local repo="$1"
     echo "$repo"
     echo "On branch: [ $(git -C "$repo" branch --show-current)]"
-    git -C "$repo" status -b -u -s
+    git -C "$repo" -c color.status=always status -b -u -s
   }
 
   export -f FZF_PREVIEW_GIT
 
   local selected_repo
   selected_repo=$(
-
     printf "%s\n" "${repos[@]}" | fzf --delimiter / --with-nth -1 \
       --preview 'FZF_PREVIEW_GIT {}' --preview-window=wrap
   )
