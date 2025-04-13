@@ -1,4 +1,6 @@
-# Configs
+# ┌─────────┐
+# │ Configs │
+# └─────────┘
 
 export EDITOR=nvim
 export TERM=xterm-256color
@@ -9,7 +11,9 @@ bind '"\e[Z":menu-complete-backward'
 # Custom PATH
 export PATH="$HOME/.local/bin:$PATH"
 
-# Start of FZF configuration
+# ┌────────────────────────────┐
+# │ Start of FZF configuration │
+# └────────────────────────────┘
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
@@ -74,4 +78,6 @@ export FZF_DEFAULT_OPTS="
   --color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934
 "
 
-# End of FZF configuration
+# ┌──────────────────────────┐
+# │ End of FZF configuration │
+# └──────────────────────────┘

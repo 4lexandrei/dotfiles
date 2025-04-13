@@ -1,11 +1,11 @@
-#
-# ~/.bashrc
-#
+# ┌───────────┐
+# │ ~/.bashrc │
+# └───────────┘
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export HISTSIZE=500
+export HISTSIZE=300
 
 colored_prompt=true
 
@@ -18,12 +18,17 @@ fi
 alias grep='grep --color=auto'
 
 # Colors
-_RED=$(tput setaf 1)
-_GREEN=$(tput setaf 2)
-_ORANGE=$(tput setaf 3)
-_BLUE=$(tput setaf 4)
-_RESET=$(tput sgr0)
-_BOLD=$(tput bold)
+_BLACK="\[$(tput setaf 0)\]"
+_RED="\[$(tput setaf 1)\]"
+_GREEN="\[$(tput setaf 2)\]"
+_ORANGE="\[$(tput setaf 3)\]"
+_BLUE="\[$(tput setaf 4)\]"
+_RESET="\[$(tput sgr0)\]"
+_BOLD="\[$(tput bold)\]"
+_BG_RED="\[$(tput setab 1)\]"
+_BG_GREEN="\[$(tput setab 2)\]"
+_BG_ORANGE="\[$(tput setab 3)\]"
+_BG_BLUE="\[$(tput setab 4)\]"
 
 # Default prompt
 # PS1='[\u@\h \W]\$ '
@@ -34,14 +39,15 @@ git_ps1() {
 
 if "$colored_prompt"; then
   # Colored
-  PS1='\[$_GREEN\][\[$_RESET\]\u@\h \[$_BLUE\]\W\[$_GREEN\]]\[$_RED\]$(git_ps1)\[$_RESET\]$ '
+  # PS1='\[$_GREEN\][\[$_RESET\]\u@\h \[$_BLUE\]\W\[$_GREEN\]]\[$_RED\]$(git_ps1)\[$_RESET\]$ '
+  # NOTE: if using double quotes embed commands with \
+  PS1="${_GREEN}[${_RESET}\u@\h ${_BLUE}\W${_GREEN}]${_RED}\$(git_ps1)${_RESET} ✘ "
 else
   PS1='[\u@\h \W]$(git_ps1)$ '
 fi
 
 # Define dirs for bashrc.d
 BASHRC_D_DIR="$HOME/.dotfiles/bashrc.d"
-SCRIPTS_DIR="$BASHRC_D_DIR/scripts"
 
 # Load all files in the bashrc.d directory
 if [[ -d "$BASHRC_D_DIR" ]]; then
@@ -51,10 +57,6 @@ if [[ -d "$BASHRC_D_DIR" ]]; then
   done
 fi
 
-# Load all script files
-if [[ -d "$SCRIPTS_DIR" ]]; then
-  for file in "$SCRIPTS_DIR"/*.sh; do
-    # shellcheck source=/dev/null
-    [ -f "$file" ] && source "$file"
-  done
-fi
+# This adds Rust to PATH
+#  shellcheck disable=SC1091
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

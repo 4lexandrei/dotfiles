@@ -36,7 +36,22 @@
   "clock": {
     "format": "{:%I:%M %p}",
     "format-alt": "{:%I:%M %p - %a, %d %b}",
-    "tooltip": false
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "format": {
+        "months": "<span color='#D4BE98'>{}</span>",
+        "days": "<span color='#D4BE98'>{}</span>",
+        "weeks": "<span color='#D4BE98'>{}</span>",
+        "today": "<span color='#D8A657'><b>{}</b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
   },
   "battery": {
     "format": "{icon} {capacity}%",
@@ -76,6 +91,7 @@
       " ",
       " "
     ],
+    "tooltip-format": "{node_name}",
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
   }
 }

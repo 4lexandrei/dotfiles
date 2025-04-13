@@ -1,23 +1,14 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- * 
- * Rofi Theme File
- * Rofi Version: 1.7.3
- **/
-
 /*****----- Configuration -----*****/
 configuration {
-font: "JetBrainsMono Nerd Font 12";
-	modi:                       "drun,run";
+    font:                       "JetBrainsMono Nerd Font 12";
+    modes:                      "drun,run,filebrowser";
     show-icons:                 false;
     display-drun:               "";
     display-run:                "";
     display-filebrowser:        "";
     display-window:             "";
-	drun-display-format:        "{name}";
-	window-format:              "{w} · {c} · {t}";
+	  drun-display-format:        "{name}";
+	  window-format:              "{w} · {c} · {t}";
 }
 
 /*****----- Global Properties -----*****/
@@ -112,6 +103,7 @@ prompt {
     background-color:            inherit;
     text-color:                  inherit;
 }
+
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
@@ -119,6 +111,7 @@ textbox-prompt-colon {
     background-color:            inherit;
     text-color:                  inherit;
 }
+
 entry {
     enabled:                     true;
     background-color:            inherit;
@@ -127,12 +120,14 @@ entry {
     placeholder:                 "search...";
     placeholder-color:           inherit;
 }
+
 num-filtered-rows {
     enabled:                     true;
     expand:                      false;
     background-color:            inherit;
     text-color:                  inherit;
 }
+
 textbox-num-sep {
     enabled:                     true;
     expand:                      false;
@@ -140,12 +135,14 @@ textbox-num-sep {
     background-color:            inherit;
     text-color:                  inherit;
 }
+
 num-rows {
     enabled:                     true;
     expand:                      false;
     background-color:            inherit;
     text-color:                  inherit;
 }
+
 case-indicator {
     enabled:                     true;
     background-color:            inherit;
@@ -175,6 +172,7 @@ listview {
     text-color:                  @foreground-colour;
     cursor:                      "default";
 }
+
 scrollbar {
     handle-width:                5px ;
     handle-color:                @handle-colour;
@@ -195,48 +193,59 @@ element {
     text-color:                  @foreground-colour;
     cursor:                      pointer;
 }
+
 element normal.normal {
     background-color:            var(normal-background);
     text-color:                  var(normal-foreground);
 }
+
 element normal.urgent {
     background-color:            var(urgent-background);
     text-color:                  var(urgent-foreground);
 }
+
 element normal.active {
     background-color:            var(active-background);
     text-color:                  var(active-foreground);
 }
+
 element selected.normal {
     background-color:            var(normal-foreground);
     text-color:                  var(normal-background);
 }
+
 element selected.urgent {
     background-color:            var(selected-urgent-background);
     text-color:                  var(selected-urgent-foreground);
 }
+
 element selected.active {
     background-color:            var(selected-active-background);
     text-color:                  var(selected-active-foreground);
 }
+
 element alternate.normal {
     background-color:            var(alternate-normal-background);
     text-color:                  var(alternate-normal-foreground);
 }
+
 element alternate.urgent {
     background-color:            var(alternate-urgent-background);
     text-color:                  var(alternate-urgent-foreground);
 }
+
 element alternate.active {
     background-color:            var(alternate-active-background);
     text-color:                  var(alternate-active-foreground);
 }
+
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
     size:                        24px;
     cursor:                      inherit;
 }
+
 element-text {
     background-color:            transparent;
     text-color:                  inherit;
@@ -258,6 +267,7 @@ mode-switcher{
     background-color:            transparent;
     text-color:                  @foreground-colour;
 }
+
 button {
     padding:                     8px;
     border:                      0px solid;
@@ -267,6 +277,7 @@ button {
     text-color:                  inherit;
     cursor:                      pointer;
 }
+
 button selected {
     background-color:            var(normal-foreground);
     text-color:                  var(normal-background);
@@ -283,6 +294,7 @@ message {
     background-color:            transparent;
     text-color:                  @foreground-colour;
 }
+
 textbox {
     padding:                     8px;
     border:                      0px solid;
@@ -297,6 +309,7 @@ textbox {
     blink:                       true;
     markup:                      true;
 }
+
 error-message {
     padding:                     10px;
     border:                      0px solid;

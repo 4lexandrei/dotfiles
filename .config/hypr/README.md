@@ -1,4 +1,3 @@
-
 # Hypr
 
 > [!NOTE]
@@ -7,6 +6,7 @@
 Please install below packages to make hyprland configuration fully functional.
 
 For Archlinux:
+
 ```bash
 sudo pacman -S kitty hyprpaper waybar rofi-wayland
 ```
@@ -14,23 +14,24 @@ sudo pacman -S kitty hyprpaper waybar rofi-wayland
 ## Programs
 
 **Terminal** -> `kitty`  
-**Menu** -> `rofi`  
+**Menu** -> `rofi`
 
 ## Autostarts
+
 - `hyprpaper`
 - `waybar`
+- `hypridle`
 
 ## Custom keybinds
 
-| Actions              | Keybinds                       |
-|:--------------------:|:------------------------------:|
-| Fullscreen           | `mainMod` + `F`                |
-| Togglesplit          | `mainMod` + `T`                |
-| Move focus           | `mainMod` + `vim mode(hjkl)`   |
-| Swapwindow           | `mainMod` + `arrow keys`       |
-| Reload hyprpaper     | `mainMod` + `W`                |
-| Reload waybar        | `mainMod SHIFT` + `W`          |
+|       Actions        |            Keybinds            |
+| :------------------: | :----------------------------: |
+|      Fullscreen      |        `mainMod` + `F`         |
+|     Togglesplit      |        `mainMod` + `T`         |
+|      Move focus      |  `mainMod` + `vim mode(hjkl)`  |
+|      Swapwindow      |    `mainMod` + `arrow keys`    |
+|   Reload hyprpaper   |        `mainMod` + `W`         |
+|    Reload waybar     |     `mainMod SHIFT` + `W`      |
 | Resize active window | `mainMod SHIFT` + `arror keys` |
-| Move active window   | `mainMod SHIFT` + `vim mode`   |
-| Center active window | `mainMod SHIFT` + `C`          |
-
+|  Move active window  |  `mainMod SHIFT` + `vim mode`  |
+| Center active window |     `mainMod SHIFT` + `C`      |

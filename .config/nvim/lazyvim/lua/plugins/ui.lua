@@ -26,11 +26,4 @@ return {
       opts.config.header = vim.split(logo, "\n")
     end,
   },
-
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      timeout = 10000,
-    },
-  },
 }

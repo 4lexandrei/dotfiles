@@ -64,14 +64,27 @@ symlink_config() {
 }
 
 symlink_local() {
+  local local_bin_dir
+  local_bin_dir="$DOTFILES_PATH/.local/bin"
+
   if [ ! -d "$HOME/.local/share/applications/" ]; then
     mkdir -p "$HOME/.local/share/applications/"
   fi
   if [ ! -d "$HOME/.local/share/fonts/" ]; then
     mkdir -p "$HOME/.local/share/fonts/"
   fi
+  if [ ! -d "$HOME/.local/bin/" ]; then
+    mkdir -p "$HOME/.local/bin/"
+  fi
+
   symlink ".local/share/applications/firefox-private.desktop" ".local/share/applications/firefox-private.desktop"
   symlink ".local/share/fonts/JetBrainsMono" ".local/share/fonts/JetBrainsMono"
+
+  for script in "$local_bin_dir"/*; do
+    if [ -f "$script" ]; then
+      symlink ".local/bin/$(basename "$script")" ".local/bin/$(basename "$script")"
+    fi
+  done
 }
 
 select_symlink() {

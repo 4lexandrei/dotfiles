@@ -1,6 +1,5 @@
-
 * {
-  font-family: 'JetBrainsMono Nerd Font', sans-serif;
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
   font-weight: bold;
   border: none;
 }
@@ -9,9 +8,17 @@
   background: none;
 }
 
+tooltip {
+  background: #1b1b1b;
+}
+
+tooltip label {
+  color: #d4be98;
+}
+
 window#waybar {
-  color: #D4BE98;
-  background-color: transparent;
+  color: #d4be98;
+  background: transparent;
 }
 
 .modules-left {
@@ -33,19 +40,19 @@ window#waybar {
 }
 
 #workspaces button {
-  color: #D4BE98;
+  color: #d4be98;
 }
 
 #workspaces button.empty {
-  color: #D4BE98;
+  color: #d4be98;
+}
+
+#workspaces button:not(.active):hover {
+  color: #7daea3;
 }
 
 #workspaces button.active {
-  color: #D8A657;
-}
-
-.workspace-1 {
-  color: #EA6962;
+  color: #d8a657;
 }
 
 #battery {

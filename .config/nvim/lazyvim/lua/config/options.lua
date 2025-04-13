@@ -5,3 +5,6 @@
 vim.opt.clipboard = "unnamedplus"
 
 vim.opt.conceallevel = 0
+
+-- Prevent lsp to change root directory when using <leader>space
+vim.g.root_spec = { "cwd" }

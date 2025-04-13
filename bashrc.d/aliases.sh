@@ -1,16 +1,21 @@
-# Aliases
+# ┌─────────┐
+# │ Aliases │
+# └─────────┘
 
 alias ll="ls -al"
 
 alias sb="
   source ~/.bashrc && echo \".bashrc successfully sourced\" ||
-  echo \"Couldn't source .bashrc\"
+  echo \"[ERROR] Couldn't source .bashrc\"
 "
 
-alias pp="preview_pictures"
+alias pp="preview-pictures"
 alias sshot="screenshot"
 alias mg="my-gits"
 
 # Git
 alias gs="git status"
 alias gdt="git difftool"
+
+# Tmux
+alias ts="tmux-sessionizer"

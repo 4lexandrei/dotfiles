@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# ┌─────────┐
+# │ my-gits │
+# └─────────┘
+
+# Start config
+github_username="4lexandrei"
+# Specify common directories with .git
+dirs=(
+  ~/.dotfiles
+  ~/dev
+)
+# End config
+
+github_urls="https://github.com/$github_username|git@github.com:$github_username"
+
+# ripgrep | grep
+if command -v rg &>/dev/null; then
+  repos=$(
+    rg --hidden -l "url = ($github_urls)" --glob '**/.git/config' "${dirs[@]}" |
+      sed 's|/\.git/config||'
+  )
+else
+  repos=$(
+    find "${dirs[@]}" -type f -path '*/.git/config' -exec grep -lE "url = ($github_urls)" {} + |
+      sed 's|/\.git/config||'
+  )
+fi
+
+# shellcheck disable=SC2317
+FZF_PREVIEW_GIT() {
+  local repo="$1"
+  echo "$repo"
+  echo "On branch: [ $(git -C "$repo" branch --show-current)]"
+  git -C "$repo" -c color.status=always status -b -u -s
+}
+
+export -f FZF_PREVIEW_GIT
+
+selected_repo=$(
+  printf "%s\n" "${repos[@]}" | fzf --delimiter / --with-nth -1 \
+    --preview 'FZF_PREVIEW_GIT {}' --preview-window=wrap
+)
+
+if [ -n "$selected_repo" ]; then
+  cd "$selected_repo" || {
+    echo "Failed to change directory"
+    exit 1
+  }
+
+  session_name=$(basename "$selected_repo" | tr . _)
+
+  if ! tmux has-session -t "$session_name" 2>/dev/null; then
+    tmux new-session -ds "$session_name" -c "$selected_repo" "bash -c 'git status; exec bash'"
+  fi
+
+  if [[ -z $TMUX ]]; then
+    tmux attach -t "$session_name"
+  else
+    tmux switch-client -t "$session_name"
+  fi
+else
+  echo "No repository selected."
+fi

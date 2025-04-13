@@ -2,6 +2,13 @@ return {
   {
     "williamboman/mason.nvim",
     opts = {
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
+        },
+      },
       ensure_installed = {
         -- Shell
         "shellcheck",
@@ -17,6 +24,8 @@ return {
         "typescript-language-server",
         "tailwindcss-language-server",
         "eslint-lsp",
+        -- Rust
+        "rust-analyzer",
       },
     },
   },
