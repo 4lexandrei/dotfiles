@@ -3,6 +3,7 @@
 # ┌─────────┐
 # │ my-gits │
 # └─────────┘
+# Easily list, navigate and check the status of your remote git repositories cloned on your machine.
 
 # Start config
 github_username="4lexandrei"
@@ -31,8 +32,8 @@ fi
 # shellcheck disable=SC2317
 FZF_PREVIEW_GIT() {
   local repo="$1"
-  echo "$repo"
-  echo "On branch: [ $(git -C "$repo" branch --show-current)]"
+  printf "%s\n" "$repo"
+  printf "On branch: [ %s]\n" "$(git -C "$repo" branch --show-current)"
   git -C "$repo" -c color.status=always status -b -u -s
 }
 
@@ -43,9 +44,9 @@ selected_repo=$(
     --preview 'FZF_PREVIEW_GIT {}' --preview-window=wrap
 )
 
-if [ -n "$selected_repo" ]; then
+if [[ -n "$selected_repo" ]]; then
   cd "$selected_repo" || {
-    echo "Failed to change directory"
+    printf "Failed to change directory\n"
     exit 1
   }
 
@@ -61,5 +62,5 @@ if [ -n "$selected_repo" ]; then
     tmux switch-client -t "$session_name"
   fi
 else
-  echo "No repository selected."
+  printf "No repository selected\n"
 fi

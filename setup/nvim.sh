@@ -1,6 +1,13 @@
 #!/bin/bash
+# nvim.sh
+# Nvim configuration selector
 
-DOTFILES_PATH="$(realpath "$(dirname "$0")/..")"
+set -o errexit
+set -o nounset
+set -o pipefail
+
+NVIM_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_PATH="$(realpath "$NVIM_SCRIPT_DIR/..")"
 
 NVIM_CONFIG_PATH="$HOME/.config/nvim"
 
@@ -23,12 +30,12 @@ set_nvim_config() {
     ln -snf "$DOTFILES_PATH/.config/nvim/lazyvim" "$NVIM_CONFIG_PATH"
     ;;
   *)
-    echo "Not found."
+    printf "Not found\n"
     exit 1
     ;;
   esac
 
-  echo "Switched to $(basename "$selected_nvim_conf") configuration."
+  printf "Switched to %s configuration\n" "$(basename "$selected_nvim_conf")"
 }
 
 set_nvim_config

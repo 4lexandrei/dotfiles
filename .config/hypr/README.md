@@ -32,6 +32,6 @@ sudo pacman -S kitty hyprpaper waybar rofi-wayland
 |      Swapwindow      |    `mainMod` + `arrow keys`    |
 |   Reload hyprpaper   |        `mainMod` + `W`         |
 |    Reload waybar     |     `mainMod SHIFT` + `W`      |
-| Resize active window | `mainMod SHIFT` + `arror keys` |
+| Resize active window | `mainMod SHIFT` + `arrow keys` |
 |  Move active window  |  `mainMod SHIFT` + `vim mode`  |
 | Center active window |     `mainMod SHIFT` + `C`      |

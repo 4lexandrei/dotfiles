@@ -3,6 +3,9 @@
 # ┌────────────┐
 # │ screenshot │
 # └────────────┘
+# Take screenshots with `grim` and `slurp`.
+# Flags:
+# `-c` or `cut` screenshots a selected region.
 
 save_dir="$HOME/Pictures/Screenshots"
 timestamp=$(date +%F_%H-%M-%S)
@@ -10,7 +13,7 @@ new_save="$save_dir/screenshot-$timestamp.png"
 
 # Create Screenshot dir if it doesn't exist
 if [[ ! -d "$save_dir" ]]; then
-  echo "Creating $save_dir as screenshots directory"
+  printf "Creating %s as screenshots directory\n" "$save_dir"
   mkdir -p "$save_dir"
 fi
 
@@ -19,7 +22,7 @@ if [[ "$1" == "cut" || "$1" == "-c" ]]; then
   region=$(slurp)
 
   if [[ -z "$region" ]]; then
-    echo "Region selection canceled. Exiting..."
+    printf "Region selection canceled. Exiting...\n"
     exit 0
   fi
 
@@ -28,28 +31,28 @@ else
 
   # Full-screen screenshot
   for i in {4..1}; do
-    echo -ne "\rTaking fullscreen screenshot in $i seconds..."
+    printf "\rTaking fullscreen screenshot in %d seconds..." "$i"
     sleep 1
   done
-  echo ""
+  printf "\n"
 
   grim "$new_save"
 fi
 
 # Check if the screenshot was created
 if [[ ! -f "$new_save" ]]; then
-  echo "[ERROR] Screenshot was not saved. Exiting..."
+  printf "[ERROR] Screenshot was not saved. Exiting...\n" >&2
   exit 1
 fi
 
 # Prompt for new filename after taking the screenshot
-echo -ne "Rename screenshot or press 'Enter' to keep default: "
+printf "Rename screenshot or press 'Enter' to keep default: "
 read -r screenshot_name
 
 if [[ -n "$screenshot_name" ]]; then
   save_as="$save_dir/$screenshot_name.png"
   mv "$new_save" "$save_as"
-  echo "Screenshot saved as $save_as"
+  printf "Screenshot saved as %s\n" "$save_as"
 else
-  echo "Screenshot saved as $new_save"
+  printf "Screenshot saved as %s\n" "$new_save"
 fi

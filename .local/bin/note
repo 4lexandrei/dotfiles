@@ -3,10 +3,11 @@
 # ┌─────────────────────────────┐
 # │ nvim + syncthing + obsidian │
 # └─────────────────────────────┘
+# Opens `~/Documents/Notes/` with `nvim` alongside with `obsidian` and `syncthing` for note-taking.
 
 # Start config
-SUBFOLDER_SELECT=0
-vault="$HOME"/Documents/Notes
+SUBFOLDER_SELECT=0            # Set to '1' to enable subfolder selector
+vault="$HOME"/Documents/Notes # Default vault
 # End config
 
 if [[ $# -eq 1 ]]; then
@@ -15,63 +16,62 @@ else
   target_directory="$vault"
 fi
 
-encoded_target_directory=$(printf "%s" "$target_directory" | sed "s/\//%2F/g; s/ /%20/g")
+encoded_target_directory=$(printf "%s\n" "$target_directory" | sed "s/\//%2F/g; s/ /%20/g")
 
 # Opens Obsidian if not already running
 if pgrep -fla "electron" | grep -q "obsidian://open?path=$encoded_target_directory"; then
-  echo "Obsidian is already running"
+  printf "Obsidian is already running\n"
 else
-  echo "Opening Obsidian on path: $target_directory..."
+  printf "Opening Obsidian on path: %s...\n" "$target_directory"
   nohup xdg-open "obsidian://open?path=$encoded_target_directory" >/dev/null 2>&1 &
   disown
 fi
 
 cd "$target_directory" || {
-  echo "Failed to change directory to $target_directory"
+  printf "Failed to change directory to %s\n" "$target_directory"
   exit 1
 }
 
 if ! pgrep -x "syncthing" >/dev/null; then
   # Initialize syncthing in the background
-  echo "Initializing syncthing..."
+  printf "Initializing syncthing...\n"
   syncthing -no-browser >/dev/null &
   disown
 
-  echo "[TIP] Please check if devices are on the same WIFI SSID to ensure syncing."
+  printf "[TIP] Please check if devices are on the same WIFI SSID to ensure syncing\n"
 
   # Add 10 seconds delay to allow Syncthing sync missing files
   for i in {10..1}; do
-    echo -ne "\rWaiting for sync: $i seconds remaning... "
+    printf "\rWaiting for sync: %d seconds remaning... " "$i"
     sleep 1
   done
-  echo -e "\nSyncthing initialization complete. Files are ready for editing."
+  printf "\nSyncthing initialization complete. Files are ready for editing.\n"
 
 else
-  echo "Syncthing is already running"
+  printf "Syncthing is already running\n"
 fi
 
 sleep 0.5
 
-if [ "$SUBFOLDER_SELECT" = 1 ]; then
+if [[ "$SUBFOLDER_SELECT" == 1 ]]; then
   # Select subfolder
   folders=$(find . -mindepth 1 -maxdepth 1 -type d \
     ! -name '.*' \
     ! -name 'Excalidraw' \
     ! -name 'Attachments' |
     sed 's|^\./||')
-  selected_folder=$(echo "$folders" | fzf --prompt="Please select: " --border --reverse)
-  selected_folder=$(echo "$selected_folder" | xargs)
+  selected_folder=$(printf "%s\n" "$folders" | fzf --prompt="Please select: " --border --reverse | xargs)
 
   # Navigate to the selected folder
   if [[ -n "$selected_folder" ]]; then
-    echo "Opening $selected_folder notes with $EDITOR"
+    printf "Opening %s notes with %s\n" "$selected_folder" "$EDITOR"
     cd "$selected_folder" || {
-      echo "[ERROR] Failed to change directory to $selected_folder"
+      printf "[ERROR] Failed to change directory to %s\n" "$selected_folder" >&2
       exit 1
     }
 
   else
-    echo "No folder selected, opening $target_directory with $EDITOR"
+    printf "No folder selected, opening %s with %s\n" "$target_directory" "$EDITOR"
   fi
 fi
 
@@ -79,6 +79,6 @@ fi
 $EDITOR .
 
 cd ~ || {
-  echo "[ERROR] Failed to change directory to home"
+  printf "[ERROR] Failed to change directory to home\n" >&2
   exit 1
 }

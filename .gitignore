@@ -1,2 +1,6 @@
+*.log
+*.tmp
+
 .config/tmux/plugins
 .config/rofi/dump.rasi
+.config/btop/themes

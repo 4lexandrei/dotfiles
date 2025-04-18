@@ -50,4 +50,4 @@ Preview images with `fzf + kitty icat`.
 
 ### Tmux-sessionizer()
 
-Quickly create or jump between tmux sessions
+Quickly create or jump between tmux sessions.

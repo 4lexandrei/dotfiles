@@ -5,7 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export HISTSIZE=300
+export HISTSIZE=500
+export HISTFILESIZE=500
 
 colored_prompt=true
 
@@ -41,7 +42,8 @@ if "$colored_prompt"; then
   # Colored
   # PS1='\[$_GREEN\][\[$_RESET\]\u@\h \[$_BLUE\]\W\[$_GREEN\]]\[$_RED\]$(git_ps1)\[$_RESET\]$ '
   # NOTE: if using double quotes embed commands with \
-  PS1="${_GREEN}[${_RESET}\u@\h ${_BLUE}\W${_GREEN}]${_RED}\$(git_ps1)${_RESET} ✘ "
+  PS1="${_GREEN}[${_RESET}\u@\h ${_BLUE}\W${_GREEN}]${_RED}\$(git_ps1)${_RESET} ✗ "
+  # ✘ and ✗ are called Ballot x
 else
   PS1='[\u@\h \W]$(git_ps1)$ '
 fi
@@ -58,5 +60,7 @@ if [[ -d "$BASHRC_D_DIR" ]]; then
 fi
 
 # This adds Rust to PATH
-#  shellcheck disable=SC1091
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+# shellcheck disable=SC1091
+if [[ -f "$HOME/.cargo/env" ]]; then
+  . "$HOME/.cargo/env"
+fi

@@ -3,6 +3,7 @@
 # ┌──────────────────┐
 # │ tmux-sessionizer │
 # └──────────────────┘
+# Quickly create or jump between tmux sessions
 
 # Start config
 subdirs=(
@@ -29,7 +30,7 @@ else
 fi
 
 if [[ -z $selected_dir ]]; then
-  echo "No directory was selected."
+  printf "No directory was selected\n"
   exit 1
 fi
 
