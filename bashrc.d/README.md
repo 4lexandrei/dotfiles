@@ -1,5 +1,13 @@
 # bashrc.d
 
+## Bat theme
+
+Run to update bat theme:
+
+```bash
+bat cache --build
+```
+
 For a full functional experience please install additional packages listed below.
 
 For Archlinux:

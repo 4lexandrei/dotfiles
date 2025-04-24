@@ -34,5 +34,7 @@ export FZF_DEFAULT_OPTS="
   --bind 'ctrl-f:reload(find -type f)' \
   --layout=reverse --border --pointer='>' \
   --preview '$HOME/.dotfiles/bashrc.d/scripts/fzf-preview.sh {}' \
-  --color=bg+:#32302f,bg:#292828,spinner:#89b482,hl:#7daea3 --color=fg:#bdae93,header:#7daea3,info:#89b482,pointer:#7daea3 --color=marker:#89b482,fg+:#ebdbb2,prompt:#e78a4e,hl+:#7daea3
+  --color=bg+:#32302f,bg:-1,gutter:-1,spinner:#89b482,hl:#7daea3 --color=fg:#bdae93,header:#7daea3,info:#89b482,pointer:#7daea3 --color=marker:#89b482,fg+:#ebdbb2,prompt:#e78a4e,hl+:#7daea3
 "
+# gruvbox-material opaque background
+# --color=bg+:#32302f,bg:#292828,spinner:#89b482,hl:#7daea3 --color=fg:#bdae93,header:#7daea3,info:#89b482,pointer:#7daea3 --color=marker:#89b482,fg+:#ebdbb2,prompt:#e78a4e,hl+:#7daea3

@@ -1,26 +1,23 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
+    opts = function(_, opts)
+      opts.ensure_installed = {
+        "lua",
         "bash",
+        "markdown",
+        "markdown_inline",
         "html",
         "javascript",
         "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
         "query",
         "regex",
         "tsx",
         "typescript",
         "vim",
         "yaml",
-        "c",
-        "cpp",
-        "rust",
-      },
-    },
+        "python",
+      }
+    end,
   },
 }

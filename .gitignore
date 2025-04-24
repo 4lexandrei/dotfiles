@@ -4,3 +4,4 @@
 .config/tmux/plugins
 .config/rofi/dump.rasi
 .config/btop/themes
+.config/bat/themes/test.tmTheme

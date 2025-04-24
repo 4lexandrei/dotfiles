@@ -14,27 +14,20 @@ This repository contains my personal dotfiles.
 **Colorscheme:** `Gruvbox Material`  
 **Font:** `JetbrainsMono Nerd Font`
 
-### neovim
-
-`nvim`
-
-Neovim default configuration
-
-`lazyvim`
-
-[LazyVim](https://github.com/LazyVim/LazyVim) neovim setup + additional plugins
-
 ## Installation
+
+> [!WARNING]
+> Please ensure to clone this repository inside `~/.dotfiles` otherwise setup scripts might not work
 
 Clone repository:
 
-```bash
+```
 git clone https://github.com/4lexandrei/dotfiles.git ~/.dotfiles
 ```
 
 For the latest (unstable) version, clone the `dev` branch:
 
-```bash
+```
 git clone -b dev https://github.com/4lexandrei/dotfiles.git ~/.dotfiles
 ```
 
@@ -42,7 +35,7 @@ git clone -b dev https://github.com/4lexandrei/dotfiles.git ~/.dotfiles
 
 Run dotfiles setup command
 
-```bash
+```
 ~/.dotfiles/bin/dotfiles
 ```
 
@@ -52,7 +45,7 @@ Run dotfiles setup command
 
 For the latest (unstable) version, clone the `dev` branch:
 
-```bash
+```
 git clone -b dev https://github.com/4lexandrei/dotfiles.git
 ```
 
