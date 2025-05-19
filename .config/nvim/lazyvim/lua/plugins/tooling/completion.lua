@@ -53,6 +53,7 @@ return {
       end
 
       opts.keymap = vim.tbl_deep_extend("force", opts.keymap or {}, {
+        -- TIP: Super-tab TAB also cycles on placeholders
         preset = "super-tab", -- presets: "default" | "enter" | "super-tab""
         -- ["<TAB>"] = { "select_and_accept" },
       })

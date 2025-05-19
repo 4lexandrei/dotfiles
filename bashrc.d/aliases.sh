@@ -4,6 +4,8 @@
 
 alias ll="ls -al"
 
+alias tree="eza --tree"
+
 alias sb="
   source ~/.bashrc && echo \".bashrc successfully sourced\" ||
   echo \"[ERROR] Couldn't source .bashrc\"

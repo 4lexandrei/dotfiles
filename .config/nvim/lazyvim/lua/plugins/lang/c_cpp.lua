@@ -28,4 +28,35 @@ return {
       })
     end,
   },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        clangd = {
+          root_dir = function(fname)
+            return require("lspconfig.util").root_pattern(
+              "Makefile",
+              "configure.ac",
+              "configure.in",
+              "config.h.in",
+              "meson.build",
+              "meson_options.txt",
+              "build.ninja"
+            )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(
+              fname
+            )
+          end,
+          cmd = {
+            "clangd",
+            "--background-index",
+            "--clang-tidy",
+            "--header-insertion=never", -- set to 'iwyu' for auto-header-insertion
+            "--completion-style=detailed",
+            -- "--function-arg-placeholders=false", -- set to true for placeholders
+            "--fallback-style=llvm",
+          },
+        },
+      },
+    },
+  },
 }
