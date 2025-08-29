@@ -1,4 +1,7 @@
 return {
+  -- Temporary fix
+  { "mason-org/mason.nvim", version = "^1.0.0" },
+  { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
   {
     "williamboman/mason.nvim",
     opts = {
@@ -26,6 +29,8 @@ return {
         "tailwindcss-language-server",
         "eslint-lsp",
         "prettier",
+        -- "codelldb", -- Maybe if compiler is clang
+        "cmake-language-server",
       },
     },
   },

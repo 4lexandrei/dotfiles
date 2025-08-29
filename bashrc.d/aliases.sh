@@ -21,3 +21,17 @@ alias gdt="git difftool"
 
 # Tmux
 alias ts="tmux-sessionizer"
+
+# Ninja
+alias ninja='ninja -j$(($(nproc) / 2))'
+
+# function helpers
+# NOTE: might get moved into a different file
+pdf() {
+  xdg-open "$1" &
+  disown
+}
+
+mon() {
+  top -p "$(pidof "$1")"
+}

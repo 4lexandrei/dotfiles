@@ -59,8 +59,14 @@ if [[ -d "$BASHRC_D_DIR" ]]; then
   done
 fi
 
-# This adds Rust to PATH
+export GTK_THEME=Adwaita:dark
+
+# --- Development configurations ---
+# Adds Rust to PATH
 # shellcheck disable=SC1091
 if [[ -f "$HOME/.cargo/env" ]]; then
   . "$HOME/.cargo/env"
 fi
+
+# SDL
+export SDL_VIDEODRIVER=wayland

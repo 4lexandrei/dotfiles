@@ -16,4 +16,10 @@ return {
     "echasnovski/mini.ai",
     enabled = false,
   },
+  {
+    "folke/snacks.nvim",
+    opts = function(_, opts)
+      opts.bigfile = { enabled = false }
+    end,
+  },
 }

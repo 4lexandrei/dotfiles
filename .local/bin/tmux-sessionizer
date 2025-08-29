@@ -36,12 +36,12 @@ fi
 
 session_name=$(basename "$selected_dir" | tr . _)
 
-if ! tmux has-session -t "$session_name" 2>/dev/null; then
+if ! tmux has-session -t="$session_name" 2>/dev/null; then
   tmux new-session -ds "$session_name" -c "$selected_dir"
 fi
 
 if [[ -z "$TMUX" ]]; then
-  tmux attach -t "$session_name"
+  tmux attach -t="$session_name"
 else
-  tmux switch-client -t "$session_name"
+  tmux switch-client -t="$session_name"
 fi

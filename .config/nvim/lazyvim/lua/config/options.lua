@@ -5,6 +5,8 @@
 vim.opt.clipboard = "unnamedplus"
 vim.opt.conceallevel = 0
 vim.opt.showmode = false
+-- vim.opt.scrolloff = 999
+
 -- vim.opt.hidden = false -- Prevent switching away from a buffer with unsaved changes
 
 -- Prevent lsp to change root directory when using <leader>space
@@ -12,3 +14,5 @@ vim.g.root_spec = { "cwd" }
 
 -- Custom vim globals
 vim.g.signature = "blink" -- "blink" | "noice" as signature provider
+
+vim.lsp.set_log_level("off") -- Prevents large size lsp log file

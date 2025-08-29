@@ -35,7 +35,7 @@ cd "$target_directory" || {
 if ! pgrep -x "syncthing" >/dev/null; then
   # Initialize syncthing in the background
   printf "Initializing syncthing...\n"
-  syncthing -no-browser >/dev/null &
+  syncthing --no-browser >/dev/null &
   disown
 
   printf "[TIP] Please check if devices are on the same WIFI SSID to ensure syncing\n"
