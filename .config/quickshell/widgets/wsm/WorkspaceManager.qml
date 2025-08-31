@@ -231,18 +231,13 @@ PanelWindow {
                                         window.y = globalPos.y;
                                     }
                                     onReleased: {
-                                        if (!window.Drag.target || window.Drag.target.parent.workspaceData.id == modelData.workspace.id) {
+                                        if (!window.Drag.target || window.Drag.target.parent.workspaceData.id == workspace.workspaceData.id) {
                                             window.parent = window.initialParent;
-                                            if (windowFullscreen) {
-                                                window.x = (workspace.width - iconSize) / 2;
-                                                window.y = (workspace.height - iconSize) / 2;
-                                            } else {
-                                                window.x = Qt.binding(() => ((windowAt[0] ?? 0) - workspace.minX) * workspace.scaleX);
-                                                window.y = Qt.binding(() => ((windowAt[1] ?? 0) - workspace.minY) * workspace.scaleY);
-                                            }
+                                            window.x = Qt.binding(() => windowFullscreen ? (workspace.width - iconSize) / 2 : ((windowAt[0] ?? 0) - workspace.minX) * workspace.scaleX);
+                                            window.y = Qt.binding(() => windowFullscreen ? (workspace.height - iconSize) / 2 : ((windowAt[1] ?? 0) - workspace.minY) * workspace.scaleY);
                                         }
                                         cursorShape = Qt.PointingHandCursor;
-                                        parent.Drag.drop();
+                                        window.Drag.drop();
                                         log(`New parent: ${window.initialParent}`);
                                         log(`New position: ${window.initialX}, ${window.initialY}`);
                                         Hyprland.refreshToplevels();
