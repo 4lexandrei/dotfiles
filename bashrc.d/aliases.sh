@@ -35,3 +35,9 @@ pdf() {
 mon() {
   top -p "$(pidof "$1")"
 }
+
+# Esp-idf
+alias get_idf='. $HOME/dev/esp/esp-idf/export.sh'
+
+# Quickshell
+alias qs="quickshell"
