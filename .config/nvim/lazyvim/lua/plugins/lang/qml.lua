@@ -24,10 +24,12 @@ return {
         qmlls = {
           cmd = {
             "qmlls",
+            "-I",
+            "/usr/lib/qt6/qml/",
           },
-          on_attach = function(client, _)
-            client.handlers["textDocument/publishDiagnostics"] = function() end
-          end,
+          -- on_attach = function(client, _)
+          --   client.handlers["textDocument/publishDiagnostics"] = function() end
+          -- end,
         },
       },
     },
