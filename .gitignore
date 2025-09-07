@@ -6,3 +6,4 @@
 .config/btop/themes
 .config/bat/themes/test.tmTheme
 *.qmlls.ini
+*.qmllint.ini

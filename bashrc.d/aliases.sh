@@ -25,6 +25,12 @@ alias ts="tmux-sessionizer"
 # Ninja
 alias ninja='ninja -j$(($(nproc) / 2))'
 
+# Quickshell
+alias qs="quickshell"
+
+# Qt
+alias qmllint="/usr/lib/qt6/bin/qmllint"
+
 # function helpers
 # NOTE: might get moved into a different file
 pdf() {
@@ -35,9 +41,3 @@ pdf() {
 mon() {
   top -p "$(pidof "$1")"
 }
-
-# Esp-idf
-alias get_idf='. $HOME/dev/esp/esp-idf/export.sh'
-
-# Quickshell
-alias qs="quickshell"

@@ -16,6 +16,3 @@ if pgrep -f "$process" >/dev/null; then
 else
   quickshell -p "$widget"
 fi
-
-# Oneliner
-# pgrep -f "quickshell.*WorkspaceManager.qml" && pkill -f "quickshell.*WorkspaceManager.qml" || ~/.local/bin/quickshell -p ~/dev/quickshell/qml/modules/wsm-standalone/WorkspaceManager.qml
