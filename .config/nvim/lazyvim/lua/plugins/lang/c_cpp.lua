@@ -1,6 +1,6 @@
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
@@ -29,37 +29,36 @@ return {
     end,
   },
   {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        clangd = {
-          keys = {
-            { "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
-          },
-          root_dir = function(fname)
-            return require("lspconfig.util").root_pattern(
-              "Makefile",
-              "configure.ac",
-              "configure.in",
-              "config.h.in",
-              "meson.build",
-              "meson_options.txt",
-              "build.ninja"
-            )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(
-              fname
-            )
-          end,
-          cmd = {
-            "clangd",
-            "--background-index",
-            "--clang-tidy",
-            "--header-insertion=never", -- set to 'iwyu' for auto-header-insertion
-            "--completion-style=detailed",
-            -- "--function-arg-placeholders=false", -- set to true for placeholders
-            "--fallback-style=llvm",
-          },
-        },
+    -- LSP
+    vim.lsp.config("clangd", {
+      cmd = {
+        "clangd",
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=never",
+        "--completion-style=detailed",
+        "--fallback-style=llvm",
       },
-    },
+      root_markers = {
+        ".clangd",
+        "compile_commands.json",
+        "compile_flags.txt",
+        "CMakeLists.txt",
+        "Makefile",
+      },
+      filetypes = { "c", "cpp" },
+    }),
+    vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if not client or client.name ~= "clangd" then
+          return
+        end
+        vim.keymap.set("n", "<leader>ch", "<cmd>LspClangdSwitchSourceHeader<cr>", {
+          buffer = args.buf,
+          desc = "Switch Source/Header (C/C++)",
+        })
+      end,
+    }),
   },
 }

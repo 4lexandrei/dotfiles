@@ -25,6 +25,9 @@ alias ts="tmux-sessionizer"
 # Ninja
 alias ninja='ninja -j$(($(nproc) / 2))'
 
+# Esp-idf
+alias get_idf='. $HOME/builds/esp-idf/export.sh'
+
 # Quickshell
 alias qs="quickshell"
 

@@ -23,7 +23,10 @@ if pgrep -fla "electron" | grep -q "obsidian://open?path=$encoded_target_directo
   printf "Obsidian is already running\n"
 else
   printf "Opening Obsidian on path: %s...\n" "$target_directory"
-  nohup xdg-open "obsidian://open?path=$encoded_target_directory" >/dev/null 2>&1 &
+  # nohup xdg-open "obsidian://open?path=$encoded_target_directory" >/dev/null 2>&1 &
+  # NOTE: Use X11 because Obsidian (Chromium/Electron) has pen pressure issues on Wayland.
+  #       This is a workaround until upstream support improves.
+  nohup obsidian --ozone-platform=x11 "obsidian://open?path=$encoded_target_directory" >/dev/null 2>&1 &
   disown
 fi
 

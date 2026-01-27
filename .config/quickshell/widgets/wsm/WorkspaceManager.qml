@@ -113,6 +113,11 @@ PanelWindow { // qmllint disable uncreatable-type
         }
     }
 
+    Connections {
+        target: DesktopEntries
+        onApplicationsChanged: {}
+    }
+
     Item {
         focus: true
         Keys.onPressed: event => {

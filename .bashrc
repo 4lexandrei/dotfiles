@@ -68,5 +68,14 @@ if [[ -f "$HOME/.cargo/env" ]]; then
   . "$HOME/.cargo/env"
 fi
 
+# Adds Android platform-tools to PATH
+if [[ -d "$HOME/Android/Sdk/platform-tools" ]]; then
+  export PATH="$PATH:$HOME/Android/Sdk/platform-tools"
+fi
+
 # SDL
 export SDL_VIDEODRIVER=wayland
+
+export IDF_CCACHE_ENABLE=true
+
+export ANDROID_HOME=$HOME/Android/Sdk/

@@ -13,7 +13,7 @@ return {
     enabled = false,
   },
   {
-    "echasnovski/mini.ai",
+    "nvim-mini/mini.ai",
     enabled = false,
   },
   {
