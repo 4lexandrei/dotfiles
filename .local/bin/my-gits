@@ -14,18 +14,27 @@ dirs=(
 )
 # End config
 
+excluded_dirs=( # NOTE: Any repository path containing this substring will be excluded
+  '/components/'
+)
+
+exclude_pattern=$(printf "%s|" "${excluded_dirs[@]}")
+exclude_pattern="${exclude_pattern%|}"
+
 github_urls="https://github.com/$github_username|git@github.com:$github_username"
 
 # ripgrep | grep
 if command -v rg &>/dev/null; then
   repos=$(
     rg --hidden -l "url = ($github_urls)" --glob '**/.git/config' "${dirs[@]}" |
-      sed 's|/\.git/config||'
+      sed 's|/\.git/config||' |
+      grep -Ev "$exclude_pattern"
   )
 else
   repos=$(
     find "${dirs[@]}" -type f -path '*/.git/config' -exec grep -lE "url = ($github_urls)" {} + |
-      sed 's|/\.git/config||'
+      sed 's|/\.git/config||' |
+      grep -Ev "$exclude_pattern"
   )
 fi
 
