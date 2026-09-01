@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# ┌───────┐
+# │ shiru │
+# └───────┘
+# Browse and explore your knowledge library
+
+shiru_dir="$HOME/Documents/Books/"
+
+selected_shiru=$(
+  (
+    find "$shiru_dir" -mindepth 1 -maxdepth 1 -type f |
+      fzf --prompt="Please select: " --border --reverse
+  )
+)
+
+if [[ -n "$selected_shiru" ]]; then
+  printf "Opening %s\n" "$selected_shiru"
+  xdg-open "$selected_shiru"
+fi
