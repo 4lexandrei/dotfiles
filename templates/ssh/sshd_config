@@ -1,0 +1,14 @@
+Include /etc/ssh/sshd_config.d/*.conf
+
+# Port <port>
+# ListenAddress <address>
+LoginGraceTime 20
+PermitRootLogin no
+MaxAuthTries 3
+MaxSessions 1
+
+KbdInteractiveAuthentication no
+PasswordAuthentication no
+
+AllowTcpForwarding no
+X11Forwarding no
