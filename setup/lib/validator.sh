@@ -15,6 +15,7 @@ readonly ALLOWED_PATH_BASES=(
   "$HOME/.local/bin"
   "$HOME/.local/share/applications"
   "$HOME/.local/share/fonts"
+  "$HOME/.local/share/icons"
 )
 
 validate_path() {

@@ -55,12 +55,16 @@ symlink_local() {
   if [[ ! -d "$HOME/.local/share/fonts/" ]]; then
     mkdir -p "$HOME/.local/share/fonts/"
   fi
+  if [[ ! -d "$HOME/.local/share/icons/" ]]; then
+    mkdir -p "$HOME/.local/share/icons/"
+  fi
   if [[ ! -d "$HOME/.local/bin/" ]]; then
     mkdir -p "$HOME/.local/bin/"
   fi
 
   symlink ".local/share/applications/firefox-private.desktop" ".local/share/applications/firefox-private.desktop"
   symlink ".local/share/fonts/JetBrainsMono" ".local/share/fonts/JetBrainsMono"
+  symlink ".local/share/icons/Bibata-Modern-Classic" ".local/share/icons/Bibata-Modern-Classic"
 
   for script in "$DOTFILES_PATH/.local/bin"/*; do
     if [[ -f "$script" ]]; then
@@ -78,7 +82,7 @@ symlink_all() {
 
 select_symlink() {
   local options
-  options=$(find "$DOTFILES_PATH" -maxdepth 1 -mindepth 1 ! -name ".git*" -name ".*")
+  options=$(find "$DOTFILES_PATH" -maxdepth 1 -mindepth 1 -name ".*" ! -name ".git*" ! -name ".mozilla")
   options=(
     "${options[@]}"
     "All dotfiles"
