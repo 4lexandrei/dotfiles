@@ -1,0 +1,16 @@
+{
+  "exclusionRules": [
+    {
+      "passKeys": "",
+      "pattern": "https?://mail.google.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://www.tinkercad.com/*"
+    }
+  ],
+  "keyMappings": "# Insert your preferred key mappings here.\n\nmap J nextTab\nmap K previousTab",
+  "newTabDestination": "browserNewTabPage",
+  "settingsVersion": "2.4.2",
+  "userDefinedLinkHintCss": "div > .vimiumHintMarker {\n    /* Link hint box */\n    background: #181b21;\n    border: 1px solid #3a404c;\n    border-radius: 5px;\n\n    box-shadow:\n        0 2px 8px rgba(0, 0, 0, 0.45),\n        inset 0 1px 0 rgba(255, 255, 255, 0.05);\n\n    padding: 2px 5px;\n}\n\ndiv > .vimiumHintMarker span {\n    /* Link hint text */\n    color: #e6e9ef;\n    font-family: \"JetBrains Mono\", monospace;\n    font-size: 11px;\n    font-weight: 600;\n}\n\ndiv > .vimiumHintMarker > .matchingCharacter {\n    /* Character currently being matched */\n    color: #8ab4f8;\n    font-weight: 800;\n}"
+}
