@@ -88,13 +88,13 @@ Rectangle {
         }
 
         Text {
-            property real padding: 20
+            property real textPadding: 20
             visible: window.displayTitle && !window.isFullscreen
             text: window.windowData.title ?? "?"
             color: window.root.config.textColor
             width: parent.width
-            leftPadding: padding
-            rightPadding: padding
+            leftPadding: textPadding
+            rightPadding: textPadding
             anchors.horizontalCenter: parent.horizontalCenter
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
@@ -125,8 +125,8 @@ Rectangle {
             var target = window.Drag.target;
             if (!target) {
                 window.parent = window.initialParent;
-                window.x = Qt.binding(() => window.isFullscreen ? (workspace.width - window.root.config.iconSize) / 2 : ((window.at[0] ?? 0) - workspace.minX) * workspace.scaleX);
-                window.y = Qt.binding(() => window.isFullscreen ? (workspace.height - window.root.config.iconSize) / 2 : ((window.at[1] ?? 0) - workspace.minY) * workspace.scaleY);
+                window.x = Qt.binding(() => window.isFullscreen ? (window.workspace.width - window.root.config.iconSize) / 2 : ((window.at[0] ?? 0) - window.workspace.minX) * window.workspace.scaleX);
+                window.y = Qt.binding(() => window.isFullscreen ? (window.workspace.height - window.root.config.iconSize) / 2 : ((window.at[1] ?? 0) - window.workspace.minY) * window.workspace.scaleY);
             }
             cursorShape = Qt.PointingHandCursor;
             window.Drag.drop();

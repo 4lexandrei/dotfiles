@@ -36,9 +36,17 @@ Rectangle {
             if (workspace.root.currentWorkspace.id == workspace.workspaceData.id)
                 return;
             if (workspace.isSpecial) {
-                Hyprland.dispatch(`togglespecialworkspace ${workspace.name.replace(/^special:/, "")}`);
+                if (Hyprland.usingLua) {
+                    Hyprland.dispatch(`hl.dsp.workspace.toggle_special("${workspace.name.replace(/^special:/, "")}")`);
+                } else {
+                    Hyprland.dispatch(`togglespecialworkspace ${workspace.name.replace(/^special:/, "")}`);
+                }
             } else {
-                Hyprland.dispatch(`workspace ${workspace.workspaceData.id}`);
+                if (Hyprland.usingLua) {
+                    Hyprland.dispatch(`hl.dsp.focus({ workspace = ${workspace.workspaceData.id} })`);
+                } else {
+                    Hyprland.dispatch(`workspace ${workspace.workspaceData.id}`);
+                }
             }
         }
     }
@@ -52,16 +60,24 @@ Rectangle {
             if (!src)
                 return;
             src.parent = parent;
-            src.x = Qt.binding(() => src.isFullscreen ? (workspace.width - root.config.iconSize) / 2 : ((src.at[0] ?? 0) - workspace.minX) * workspace.scaleX);
-            src.y = Qt.binding(() => src.isFullscreen ? (workspace.height - root.config.iconSize) / 2 : ((src.at[1] ?? 0) - workspace.minY) * workspace.scaleY);
+            src.x = Qt.binding(() => src.isFullscreen ? (workspace.width - workspace.root.config.iconSize) / 2 : ((src.at[0] ?? 0) - workspace.minX) * workspace.scaleX);
+            src.y = Qt.binding(() => src.isFullscreen ? (workspace.height - workspace.root.config.iconSize) / 2 : ((src.at[1] ?? 0) - workspace.minY) * workspace.scaleY);
             var address = src.address;
             var name = src.name;
 
             if (src.parent.name && src.parent.isSpecial) {
-                Hyprland.dispatch(`movetoworkspacesilent ${src.parent.workspaceData.name}, address:${address}`);
+                if (Hyprland.usingLua) {
+                    Hyprland.dispatch(`hl.dsp.window.move({ workspace = "${src.parent.workspaceData.name}", window = "address:${address}", follow = false })`);
+                } else {
+                    Hyprland.dispatch(`movetoworkspacesilent ${src.parent.workspaceData.name}, address:${address}`);
+                }
                 workspace.root.log(`Special: ${src.parent.workspaceData.name}`);
             } else {
-                Hyprland.dispatch(`movetoworkspacesilent ${workspace.workspaceData.id}, address:${address}`);
+                if (Hyprland.usingLua) {
+                    Hyprland.dispatch(`hl.dsp.window.move({ workspace = "${src.parent.workspaceData.id}", window = "address:${address}", follow = false })`);
+                } else {
+                    Hyprland.dispatch(`movetoworkspacesilent ${workspace.workspaceData.id}, address:${address}`);
+                }
             }
             Hyprland.refreshToplevels();
             workspace.root.log(`Moved ${name} -> workspace ${workspace.workspaceData.id}`);

@@ -115,7 +115,6 @@ PanelWindow { // qmllint disable uncreatable-type
 
     Connections {
         target: DesktopEntries
-        onApplicationsChanged: {}
     }
 
     Item {
