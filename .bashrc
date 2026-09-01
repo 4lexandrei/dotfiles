@@ -6,7 +6,7 @@
 [[ $- != *i* ]] && return
 
 export HISTSIZE=500
-export HISTFILESIZE=500
+export HISTFILESIZE=1000
 
 colored_prompt=true
 
@@ -19,17 +19,19 @@ fi
 alias grep='grep --color=auto'
 
 # Colors
-_BLACK="\[$(tput setaf 0)\]"
-_RED="\[$(tput setaf 1)\]"
-_GREEN="\[$(tput setaf 2)\]"
-_ORANGE="\[$(tput setaf 3)\]"
-_BLUE="\[$(tput setaf 4)\]"
-_RESET="\[$(tput sgr0)\]"
-_BOLD="\[$(tput bold)\]"
-_BG_RED="\[$(tput setab 1)\]"
-_BG_GREEN="\[$(tput setab 2)\]"
-_BG_ORANGE="\[$(tput setab 3)\]"
-_BG_BLUE="\[$(tput setab 4)\]"
+_BLACK='\[\033[30m\]'
+_RED='\[\033[31m\]'
+_GREEN='\[\033[32m\]'
+_ORANGE='\[\033[33m\]'
+_BLUE='\[\033[34m\]'
+_RESET='\[\033[0m\]'
+_BOLD='\[\033[1m\]'
+_BG_RED='\[\033[41m\]'
+_BG_GREEN='\[\033[42m\]'
+_BG_ORANGE='\[\033[43m\]'
+_BG_BLUE='\[\033[44m\]'
+
+END_CHAR="✗" # ✘ and ✗ are called Ballot x✗
 
 # Default prompt
 # PS1='[\u@\h \W]\$ '
@@ -40,15 +42,13 @@ git_ps1() {
 
 if "$colored_prompt"; then
   # Colored
-  # PS1='\[$_GREEN\][\[$_RESET\]\u@\h \[$_BLUE\]\W\[$_GREEN\]]\[$_RED\]$(git_ps1)\[$_RESET\]$ '
   # NOTE: if using double quotes embed commands with \
-  PS1="${_GREEN}[${_RESET}\u@\h ${_BLUE}\W${_GREEN}]${_RED}\$(git_ps1)${_RESET} ✗ "
-  # ✘ and ✗ are called Ballot x
+  PS1="${_GREEN}[${_RESET}\u@\h ${_BLUE}\W${_GREEN}]${_RED}\$(git_ps1)${_RESET} \${END_CHAR} "
 else
-  PS1='[\u@\h \W]$(git_ps1)$ '
+  PS1='[\u@\h \W]$(git_ps1) ${END_CHAR} '
 fi
 
-# Define dirs for bashrc.d
+# Define bashrc.d directory
 BASHRC_D_DIR="$HOME/.dotfiles/bashrc.d"
 
 # Load all files in the bashrc.d directory
@@ -58,24 +58,3 @@ if [[ -d "$BASHRC_D_DIR" ]]; then
     [ -f "$file" ] && source "$file"
   done
 fi
-
-export GTK_THEME=Adwaita:dark
-
-# --- Development configurations ---
-# Adds Rust to PATH
-# shellcheck disable=SC1091
-if [[ -f "$HOME/.cargo/env" ]]; then
-  . "$HOME/.cargo/env"
-fi
-
-# Adds Android platform-tools to PATH
-if [[ -d "$HOME/Android/Sdk/platform-tools" ]]; then
-  export PATH="$PATH:$HOME/Android/Sdk/platform-tools"
-fi
-
-# SDL
-export SDL_VIDEODRIVER=wayland
-
-export IDF_CCACHE_ENABLE=true
-
-export ANDROID_HOME=$HOME/Android/Sdk/

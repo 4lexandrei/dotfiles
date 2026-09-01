@@ -8,9 +8,6 @@ export TERM=xterm-256color
 bind 'TAB:menu-complete'
 bind '"\e[Z":menu-complete-backward'
 
-# Custom PATH
-export PATH="$HOME/.local/bin:$PATH"
-
 # ┌───────────────────┐
 # │ BAT configuration │
 # └───────────────────┘
